@@ -1,0 +1,317 @@
+09:22:21 >>Professor:  all right.  Let's get started.  Let me just fire up the recording here.
+09:22:49 Okay.  Hi everybody.  Welcome to CSE introduction to analysis of algorithms.  I'm excited to have you in the course.
+09:23:00 I recognize some of you from last spring.  Welcome to those of you I have not met.  One zero two covers important material in computer
+09:23:09 science.  Learning about algorithms to solve large problems efficiently got me first interested in computer science.
+09:23:17 To this day, I use the material from this course over again in my research.  I will tell you about that as we go through the course.
+09:23:34 Let me introduce myself.  I'm professor Fremont.  I joined UC Santa Cruz a year ago.  I work in formal methods.  It uses methods to
+09:23:45 solve hard ware systems and prove gaurantees about them.  Let me share slides with you.  I have a few slides.  Then we will switch over
+09:24:01 to using the paper.  Let me get zoom to share here.  Okay.  Hopefully, you can all see this.  If not let me know in the chat.
+09:24:16 As I was saying, I want to tell you about my research so you know about me.  I use formal methods.  What we look at are try to go give strong
+09:24:30 gaurantees about software and systems with computer assisting.  There's software verifying.  If you give me the source code for
+09:24:43 a program you wrote.  Can we prove mathematically that there's no bugs?  That's closely to what we do in this class.  We look at
+09:24:54 algorithms and how you can prove them correct.  For every input they give you the right output.  We will look at algorithms and math
+09:25:07 procedures not the applications of real code like Python.  We will construct in this class the proofs by hand.  We will prove by
+09:25:27 induction on the length of the input or the sorting algorithming outputting the assorted list.  In formal methods we generate the proofs.
+09:25:34 You want the computer to prove it's correct or show it's not correct and find input on which it does the wrong thing.
+09:25:48 To give you a little example of what this can look like I will show a quick video.  This is an experiment we did last, the summer before last.
+09:26:03 We used some of the techniques I used for the self driving car.  Here comes the car.  We have this fake pedestrian here.
+09:26:16 The car fails to stop in time.  Actually collides with the pedestrian.  We use formal methods techniques to find this case where the driving
+09:26:25 car behaves badly in simulation first and then we reproduce the failure on a test track with a real car as you saw here.
+09:26:41 Let me switch back over to my notes here.  This gives a taste of what my research is about.  I work on a couple of different areas.
+09:26:58 One is this type of thing you are seeing here.  Analyzing systems that use artificial intelligence or self learning.  We fooled the car to drive
+09:27:09 in to the pedestrian.  An important area for formal methods is applying to systems like this.  I still have this slide up from the video.
+09:27:19 I will switch to something else in a moment.  These systems obviously could have very important consequence in the real world if there's
+09:27:30 a self.  Something like a self driving car.  These are safety critical systems.  If you use a neural network or A I technique.  It's hard to
+09:27:47 give gaurantees on what the system will do.  I work on synthesis where you generate a correct implementation of what you want it to do
+09:27:57 from a high level.  You have the computer write the code automatically.  If you are interested in learning about my research come to office hours.
+09:28:08 I'm happy to talk about that.  As I said before, I personally use concepts from one zero two all the time in my research.  I will try to put in
+09:28:24 some notes about that as we go through.  Going back to the slides here I want to quickly introduce the rest of the teaching team who will
+09:28:42 help out running the course.  We have two TA's Ross and Sekun.  I'm not sure if they are on.  I'm not sure they could make it today.
+09:28:53 I don't think either of them could make it unfortunately today.  Hopefully, you can meet them in the future.  They will run sections
+09:29:07 starting Wednesday we will send out more information about that shortly.  We also have our MS I learning assistant gram who is here.
+09:29:14 Gram if you want to introduce yourself let me unmute you here.  You can say a little bit about yourself.
+09:29:24 Is that working?
+09:29:30 >>Student:  hello.  Is this working?
+09:29:33 >>Professor:  yes.  We can hear you.
+09:29:48 >>Student:  I'm gram.  This is my first quarter working with L S.  MS I is a service afterred by the university for free.
+09:29:58 It's halfway in between tutoring and office hours.  I will discuss concepts from lecture and trying to help people improve their understanding.
+09:30:11 I look this course last quarter.  I will draw from what I learned there to help you.  I will be sending out more details on piazza later this week.
+09:30:21 >>Professor:  thank you gram.  I encourage everybody to take advantage of the MS I activities that we will have.  I will give more
+09:30:34 details about that later on today and then there's also more information about that in the syllabus.  All right.  So, a few points about
+09:30:53 logistics for the course.  First of all please read the syllabus.  I have not posted it because of sections.  I will post it after lecture.
+09:30:59 A question, if you are on the wait list can you be added to piazza?  Absolutely.
+09:31:12 Once the syllabus is posted I will do it rite after lecture.  Just fill in the times.  It will have a link to the piazza page and you can add yourself
+09:31:24 using that link.  If you have issues let me know.  I think I will have a code in there that you can use to add yourself to piazza.  Thank you for
+09:31:34 the question.  The main point is please look at the syllabus for questions about logistic details about the course.  That has information about
+09:31:46 what will happen in each week in general.  The day for the midterm, the grading break down, it's in the syllabus that will go up shortly.
+09:31:55 A few things I want to mention, one, we are using zoom for the lectures.  You were able to figure that out.  I'm glad.  We have a few people
+09:32:08 here now.  I'm hoping everybody made that work.  A few points about zoom etiquette here.  I will record all the lectures.  You can see them
+09:32:20 on canvas.  I encourage you to strongly encourage you to attend in person.  We have different interacting elements.  If you can't make
+09:32:31 a particular lecture for some reason do find the recording on canvas so you can follow along.  If you are on the wait list and you are hoping
+09:32:41 to get in they are processing the wait list in the next few days.  In the meantime, you are welcome to follow along with the lectures so
+09:32:53 you don't fall behind.  Also, please ask questions in lecture.  Some of you asked questions using the chat.  Thank you for that.
+09:33:05 That's the easy way to ask questions through the chat.  You can raise your hand if I fail to notice you in the chat.  I will have it up here as
+09:33:15 a separate window.  If a lot of questions come in at once you can use the raise your hand feature in zoom.  It is in the participant list.
+09:33:26 I can call on you.  When you ask a question I can either just answer it directly from the chat or I can unmute you if you want to ask your
+09:33:40 question verbally if you don't mind being recorded.  Finally, on zoom, I will use some interactive features.  Possibly the break out rooms but
+09:33:53 I had tech issues with that in the spring.  I will use zoom polls to give you quick questions to gauge your understanding and to understand
+09:34:06 myself if we need to spend more time on topics.  This will help with your understanding.  Because of these things I encourage you to
+09:34:22 attend lecture in person if you can make the time slot.  One thing I want to show you because you may not have heard of this research before
+09:34:35 but there's research showing having students actively participate in lecture improves everybody's outcomes.  What you can learn
+09:34:44 in the course.  The amount you get out of the course.  This is one example of that from a paper that showed this in a physics course.
+09:34:55 This has been seen in different fields where it's an interesting gap.  On the right-hand side you can see with when they used active learning
+09:35:06 in lecture across the board everybody enjoyed the class less.  Nobody liked the active learning because you have to engage your brain and
+09:35:17 answer the questions in the lecture.  On the left this was a score of how much people actually learned.  At the end of the course they gave
+09:35:28 people a test.  When they used active learning in lecture people learned more.  That's where I'm going to use this.  I encourage you to keep
+09:35:43 an open mind about this.  It's pain less.  In one zero three last spring when I taught it over zoom in the spring people found the quizzes
+09:35:54 useful in helping them to solidify what I have been talking about.  We will do that.  Also, a few more points on logistics.
+09:36:07 There are several web sites we will use.  Question coming in here.  Actually a couple students with the same question about the chat.
+09:36:19 Now I have it locked down so you can only chat to me.  Just because I found it was a bit distracting potentially.  Yes.  I can look in to
+09:36:28 turning it on so you can talk to each other.  Of course, the potential issue there is you can't pay attention to what's going on in
+09:36:40 in lecture while talking to someone else.  Let me think about that and get back to you.  Question about the syllabus.
+09:36:52 It's going to be posted on canvas.  I will send an announcement once it's posted.  It's not up yet because we have to fill in the times for
+09:37:04 the sections.  I will send it out after class.  The web sites we will use, one is canvas.  That's the main hub for everything.
+09:37:14 Everything should be linked to from there.  We will post links to the home works, assignments, readings to go with lecture sometimes.
+09:37:24 Different notes and thing also be posted there.  There's a couple older web sites we will use for particular things that will be linked to from
+09:37:35 canvas.  One is piazza which we will use for all questions and discussions.  You can find the link from the canvas page now.
+09:37:44 I believe you can enroll yourself through that link.  If that doesn't work let me know.  I will change the settings there.
+09:37:56 Please post all questions about course material on piazza so when we or myself or the TA's answer it everybody benefits from the answer
+09:38:05 to the question.  If you have a specific questions about some work in progress you have on the home work you can post a private
+09:38:15 question to the instructor.  When possible post publicly so everybody can benefit from the answer.  You can most anonymously if you
+09:38:25 prefer.  Go to piazza for questions or discussions.  I encourage you, there's a post that you can use to find teams if you want to
+09:38:33 collaborate with students an the home work or studying.  There's a feature you can use to find people with a similar schedule.
+09:38:43 The policy for collaboration on the home work is spelled out in the syllabus.  In short, I encourage you to work with other people but
+09:38:53 the collaboration has to be based on exchange of ideas.  You need to write up your own solutions.  You can't copy other people's
+09:39:03 solutions.  This's academic dishonest y.  To collaborate and brain storm and continue up with ideas for how to solve things you are
+09:39:16 welcome to do that.  As long as you give appropriate credit to your collaborators in the assignment.  You should write in the home work
+09:39:29 the people you worked with.  We will use grade scope.  There's a link from canvas and from the syllabus.  We will use that to submit
+09:39:40 home work.  You will get the results, the rubrics also through grade scope.  I will try to use grade scope for the midterm and final.
+09:39:54 If there's tech issues we may go back to canvas but I'm hoping to use grade scope.  I will send a test assignment for grade scope so if
+09:40:04 you have not used it before you can get used to the interface of how to submit an assignment so you can test it out before the first
+09:40:19 home work assignment.  All right.  A question about the advantages of grade scope.  Mainly it has a better interface for grading.
+09:40:31 It's more convenient than canvas.  Both for grading quickly but also giving feed back to you on individual problems.
+09:40:40 You will find it's easy to use.  All you have to do is upload the PDF like you would on canvas.  Indicate for each of the problems on the
+09:40:54 home work what pages of the PDF you solved them on.  It's easy to use.  One last important point is DRC accommodations.
+09:41:05 If you have these accommodations please email me.  As soon as possible but within the first two weeks so I can make sure we have
+09:41:17 everything set up for you well in time.  A few other questions that are coming in.  Is the zoom link the same for each lecture?
+09:41:27 I believe so.  I'm almost certain it's the same.  If you have issues from that from the canvas page you go on the zoom tab and find
+09:41:36 the link for every individual lecture.  I think it's the same.  Wait list students don't have access to canvas.  You do have access to
+09:41:49 canvas it may be hard to find.  People have trouble finding the page even though it's publicly available for everybody logged in with their
+09:42:04 UC SC account.  At the end of class I will pull out -- actually let me see if I can pull it out quickly.  I can put the link in the chat.  Here it is.
+09:42:15 I will post it here now.  It's been done for me.  Thank you.  He sent it to me.  Let me send it to everyone.  Here it is.  Canvas link.
+09:42:27 There you go.  This should work for everybody even if you are not formally enrolled in the class.  You have to be logged in.
+09:42:43 Yes.  If you would like to be added to canvas the one thing that will not work if you are not formally enrolled is you don't get announcements.
+09:42:55 If you are the wait list and want to be added to get announcements sent me an email.  Other wise, you should be added to canvas within
+09:43:05 twenty four hours of enrollment going through.  Another question was what text book are we using and is it mandatory?
+09:43:17 The book is not mandatory.  The course is designed to be self contained, but there are a couple books which we will use some material from.
+09:43:26 Which will be great resources for you if you would like to do additional reading to solidify your knowledge more.
+09:43:44 One of those text books, again this is also in the syllabus which will go up on canvas after class, is algorithm design by c line berg.
+09:43:58 That's the main book I will follow.  With reference to CLRS another classic algorithm book.  Those names are in the syllabus.  It's not
+09:44:07 required.  You don't need to buy the book if you don't want to.  Also I believe you can find digital versions of these books if you prefer.
+09:44:25 Other questions about the wait list since there are a lot of you who want to get in the class.  Is there anything we need to do if we are wait
+09:44:38 listed besides going to lecture?  No not really.  You can email me to get access to be added to the canvas page if you want the announcements.
+09:44:48 My understanding is the wait list will be processed today or in the next couple days.  There's not much more do on that front.
+09:44:58 Just wait and see what happens.  Because of the loading I don't have the ability to give people permission codes.  I think it's handled by
+09:45:07 by the department.  I believe they will get that processed giving priority to people who need to graduate in the next few days.
+09:45:19 If you can follow along with lecture and just look on canvas you should have the materials and you should be in fine shape for when you get
+09:45:28 in the class.  If you are not able to get in but want to follow along think way you can do that.  Other questions?
+09:45:38 One question about how many students made it had off the wait list in other quarters?  I have no idea.  This is my first time teaching the course.
+09:45:51 I'm not sure.  Things are different with everybody being done remotely.  I don't know what your chances are.  In one zero three it was a
+09:46:04 two hundred student course in the spring.  A fair number of people got off the wait list like twenty.  I don't know if that correlates.
+09:46:18 This is a smaller class so it may be fewer enrollment capacity I don't expet to increase.  We are limited by grading ability.  We can't
+09:46:32 grade so many problems.  If you are low down on the wait list you have a chance to get in.  I can't make promises.  I don't know how many.
+09:46:43 It's possible there's a fair amount of turn over.  Hopefully, in the next few days.  Let's see how we are doing on time.
+09:46:56 Great.  A few points, last points I want to make before we dive in to what the class is going to actually be about are resources to succeed.
+09:47:08 Our primary goal is to help you get through this course and learn this important material which will help you out later no matter what your
+09:47:20 career goals are.  The material in this course as I said is foundation al.  Not only will you learn about core algorithm that is get used over
+09:47:28 and over again in different applications but also general techniques that help you design algorithms for your own problems if you need to
+09:47:42 solve a problem maybe in industry.  Also, just general problem solving and rigorous math techniques that are useful in all sorts of fields.
+09:47:52 We are hoping to help everybody to learn not just the material but also develop these skills of reasoning and designing algorithms and
+09:48:03 thinking about how to come up in the first place with an a algorithm to solve a problem.  We have resources in class to help you learn that
+09:48:15 material and those skills.  The first part is lectures and in lectures I encourage you to actively participate.  You get so much more out of
+09:48:27 lecture instead of just sitting there you take notes and ask questions and participate in the polls.  You will have stronger memories of
+09:48:41 the material and you can use the material in a general way rather than repeating what's in written notes.  We will also post in addition to
+09:48:51 the recordings my written notes.  Most lectures don't use slides but paper.  I will scan in those notes and put them online for your
+09:49:03 reference when you are studying or trying to get a better grip of the material.  I will put on canvas extra reedings and if anything comes up
+09:49:14 in lecture that you want to learn more about make a post in piazza and I can put links to further resources if you want to go in to depth
+09:49:25 on some topic.  Also we have sections.  This is really the best place to work through home work problems and solidify your understanding.
+09:49:35 I encourage you to attend sections.  Along with the syllabus which will go up shortly, that will have the initial times for the sections.
+09:49:45 You can attend any of the sections at least at first.  If we find some of them are too large we will spread people out more.  Initially,
+09:49:58 feel free to attend any section.  Those are the key place for you to practice working through problems, getting feed back from our TA's
+09:50:11 so you can be prepared for the problems that will be on the home work.  We also have office hours.  One thing that I want to say
+09:50:20 here is there's a miss conception that people have that office hours are for students struggling or going to office hours is a bad thing.
+09:50:28 That's not the case.  In fact, the student who is do best take advantage of the resources they have available.  Including going to office hours.
+09:50:39 Please come do my office hours or the TA's and ask questions if there's appoint from lecture you didn't understand that you want to see
+09:50:47 presented in a different way.  If there's a question about a home work problem you are stuck on and don't know how to proceed or
+09:50:56 there's a topic that I mentioned briefly in lecture but you are interested in and want to learn more about it I can give pointers to that.
+09:51:17 question about the format of the section.  They may have a little bit of lecture in the sense of trying to repeat material from lecture.
+09:51:27 That's primarily not what they will do because that's the goal of lecture.  The main goal of section is to work on problems.  We will have a
+09:51:37 worksheet that are problems of the same types on the home work.  Work through those problems and having you work in small groups
+09:51:48 in the sections on those problems and TA's draw those together to form solutions and talk about how would you think about these problems?
+09:51:57 What's wrong with the solution?  How can we fix it?  That's what which do in section.  That complements the lectures.  Giving you a chance to
+09:52:10 , in this collaboration environment, to try out your knowledge from lecture and understand in a practical sense what it means by doing
+09:52:25 hands on activities.  Another place to do that is MS I which gram mentioned earlier.  I encourage you to attend those collaborative
+09:52:36 sessions as a great place, in a friendly environment, to try out your knowledge and solidify your understanding.  That's a resource that
+09:52:46 we have seen from statistics.  People who take advantage of that do better than people who don't.  I encourage you to take advantage
+09:53:01 of that.  There's more information in the syllabus with links to how you can register and so forth.  Okay.  I think that's all I wanted to say about
+09:53:12 logistics.  For details with the grading break down and midterm dates that's on the syllabus that will go up shortly.  Are there any other
+09:53:17 logistical questions before we move onto an overview of the course?
+09:53:37 All right.  Great.  Let me give you a very high level picture of what with we will talk about in class.  I will give an example of some of the
+09:53:47 types of things we will think about.  This class is about algorithms.  What are algorithms?  You have seen this already in one zero one and
+09:53:57 other courses.  An algorithm is a word for a computational process for solving a problem.  If you want to solve a problem you can think about
+09:54:05 how to do it yourself.  If you want to have a computer do it you need a formal procedure.  A list of steps that the computer needs to take
+09:54:17 to solve the problem.  That's what we mean by algorithm.  This is a, as I said before, a foundation all subject in computer sigh inches.
+09:54:22 Science everything is about algorithms.
+09:54:33 You are doing computations on the computer for a simulation in physicses or computing statistics about your biology experiment you
+09:54:44 need the computer to do addition.  You may think Python something like that.  If I have the integer of variables I can write X plus Y.
+09:54:55 What's going on internally is a an algorithm is running.  If X and Y is in a binary it's not obvious how you would compute the binary representation
+09:55:05 of the sum X and Y.  You may have a math definition of what addition is but that doesn't tell you how to operate on the actual encoding
+09:55:13 of those numbers in binary which is in the computer.  What you learned in school, the procedure you learned from doing addition probably
+09:55:22 you learned it in base ten not two but that's an algorithm telling you what are the steps you need to follow to go from the digits of
+09:55:36 X and Y to get digits of X plus Y.  Even addition is a basic operation and it may seem like we learned a trivial algorithm in elementary school for that
+09:55:51 but that algorithm may not get much used in your computer.  There's faster algorithms that use parallelism to form different parts of
+09:56:01 of the sum of that.  Even that is subtell.  In this class we will look at more sophisticated problems than something like addition.
+09:56:20 All sorts of industrial applications are founded on having efficient algorithms that can use a clever sequence of operations to solve things
+09:56:33 in less time and memory than you may expect other wise that you can do with a naive algorithm.  If you think of Google processing billions of
+09:56:46 emails and web pages for search researches and you want an instant response like give me emails from a certain person or dates those
+09:56:57 problems are depending upon efficient algorithms that both are correct but manage to solve the problem in a fast or in expensive way.
+09:57:09 This course is about fundamental techniques for designing and analyzing these algorithms.  The course is analysis of algorithms.
+09:57:20 What do we mean by analysis?  There's different aspects we will talk about.  The first is correctness.  If you develop an algorithm for
+09:57:29 some problem the important thing is that the algorithm actually works.  That for all possible inputs to the problem you get the right output.
+09:57:43 If you design an algorithm to find the shortest path in a map.  Like you design Google maps.  You want to know given two addresses what is
+09:57:56 the shortest path between those you need to prove your algorithm for my paths gives the shortest paths.  You can't show that by looking at
+09:58:07 at all possible paths because there's too many of those.  You need a math argument that generalizes over all possible inputs to show
+09:58:16 in a finite amount of reasoning that the algorithm is correct on all possible inputs.  We will talk about doing that in this course.
+09:58:25 Once you have a correct algorithm you need to figure out what resources your algorithm will use.  You can imagine maybe I have an
+09:58:38 algorithm which is correct but it needs so much time or memory that it's not practical to use on a realistic size problem.  One of the other
+09:58:48 areas we will talk about in class is how you can compute for a given algorithm what is the worse case run time of that algorithm or
+09:59:00 the worse amount of memory it needs?  If you can show if you have a problem of size N that we only need two N or three N steps
+09:59:10 that would be called linear time.  Then that means you may be able to run this algorithm on very large problems.  Where as, if your
+09:59:21 algorithm needs exponential time on a problem of size N it requires two to the N steps it's unlikely the algorithm will work on all but small
+09:59:34 problems.  Working out how much time or memory it uses in the worse case is a critical point.  We will talk about general techniques for how
+09:59:44 to do that.  Finally, we will talk about how you can design algorithms for new problems.  In this class we will give you a tool kit not only
+09:59:57 of classical algorithms you can use to build up difficult algorithms but techniques for how to design a new algorithm.  This is one of the
+10:00:06 most useful things I found in my own research from this class is this tool kit of ways that once you are given a problem you can think
+10:00:16 about how would I go about solving this problem?  Given a problem it may not be clear at first how to solve it or if you can think of some
+10:00:26 way of solving it, it may be inefficient.  Maybe you have to check all possibilities.  There could be many possibilities.  We will talk about
+10:00:36 techniques like divide and conquer or dynamic programming that are useful in getting efficient algorithms that can be faster than a brute
+10:00:47 force approach.  The ultimate goal of this is that at the end of this course you will know not only how many of the most important
+10:00:56 algorithms work but you will be able to design correct and efficient algorithms for new problems.  You can design an algorithm.
+10:01:08 You can figure out how much time or memory it uses.  You can prove it's correct on all possible inputs.  That will serve in good stead whether
+10:01:17 whether you need to solve a problem in industry.  Maybe you work in theoretical computer science and you need to prove a procedure
+10:01:32 works correctly.  In many fields where you need to give a math prove of the correctness of some procedure.  Will course slides be posted
+10:01:43 after or before lectures?  Yes.  Normally we don't use slides.  I will write.  You will see in a second.  I will scan and post them.  These slides I will
+10:02:03 upload to canvas after class.  All right.  In the last twenty five minutes, I want to give you an example of some of the things we will think about
+10:02:16 in the course.  Let me switch.  One moment.
+10:02:40 Sorry about this.  It will be faster in the future.
+10:02:52 Hopefully, you can all see this.  If not, let me know.  In fact, let me write something here.
+10:03:10 You can tell me whether it's clear.  Can you all read that?  All right.
+10:03:24 Excellent.  Thank you.  At least some of you can read it.  We will use this system for most of the class.  Last quarter we had some issues
+10:03:37 where occasionly just due to internet slow downs the image was blurry.  If something like that happens and you have trouble reeding what
+10:03:47 I'm writing let me know in the chat.  Also, I will post the lecture recordings to canvas as I mentioned before.  Those will be
+10:03:57 clear because I'm recording it on my local machine.  Can I make it brighter?  This is unclear.
+10:04:16 I probably can't at the moment.  For next lecture I will see if I can improve the lighting.  I will write a little larger so you can read it.
+10:04:39 What I will do in the last twenty minutes is talk about an example algorithm problem.  How we may think about this problem and
+10:05:02 give it a preview of the topics we will discuss in the rest of class.  The problem is the convex hall problem.
+10:05:24 The idea in the convex hall problem is your given as input a set of points and it could be a set of points in three D space or in the plain.  For now,
+10:05:44 I will talk about it in the plain.  In the two D plain.  For example, we could have some points around like this.
+10:05:59 This would be the input.  You would be given a set of points described by X Y coordinates.  We could say as X Y coordinates.
+10:06:15 I give a list of these points.  I give for each point the X and Y coordinates of them.  Now what you are trying to do is find the convex hall
+10:06:33 of this set of points.  The convex hall is the smallest convex polygon containing all of these points.  The output is the convex hall.
+10:06:58 Which is the smallest convex polygon containing the points.  In this example, the convex hall would be this polygon.
+10:07:20 What convex means is that there are no in dents in to this polygon.  For any two points in this polygon the line between those two points
+10:07:35 is completely contained in the polygon.  If we had a polygon like this, this would be not convex.
+10:07:45 Because here there's an in dent which means if you look at these two points and you look at the line between them that is not actually
+10:07:58 contained in the polygon.  Where as a polygon like this, this is convex.  Because if you take any two points on the surface of this polygon
+10:08:11 say like these two.  Then the line in between is actually contained.  The mathematical definition I will not write precisely of convex is this one.
+10:08:21 For any two points the line between them is contained inside the polygon.  You can think of it as meaning there's no in dents or
+10:08:27 holes in the polygon like this.  We have a question.  Go ahead.
+10:08:35 >>Student:  I forgot to unmute.  I was going to guess at that response which was close to what you drew.
+10:08:54 >>Professor:  about why it's not convex?  Sorry about that.  Thank you for that.  Right.  This is the idea of a convex polygon.
+10:09:05 In this convex hall problem what we are trying to find is the outer most set of points.  These three are not on the convex hall because they are
+10:09:17 somehow interior to the set of points where as these points lie an the boundary.  If you think of a fence around these points and you want
+10:09:30 it as tight as possible.  The tightest fence you can build is this one which is the convex hall unless you have in dents.  Is it clear what the
+10:09:43 definition of this problem is?  Question, go ahead.
+10:09:55 >>Student:  hello.  I had a question about the knot convex shape you drew.  What if there's appoint at this point inside between those
+10:10:01 two ones.  Is it okay to connect dots?
+10:10:16 >>Professor:  for the vortex here?  I didn't show the vertices.  These are the vertices.  These points.  Even if you include -- in order for --
+10:10:33 in the polygon I drew before it has to have a vortex.  I didn't define it, it's a sequence of points where you connect them by line
+10:10:43 sequences to get the polygon.  You have to be careful.  If you define it that way you can have self intersections.  Yes.  We could have this
+10:10:54 as a vortex.  This is not a convex polygon because there's two points on the edge of the polygon.  If you draw the line between them this line
+10:10:58 is not actually contained in the interior of the polygon.
+10:11:00 >>Student:  I see.
+10:11:01 >>Professor:  make sense?
+10:11:02 >>Student:  yes.  Thank you.
+10:11:16 >>Professor:  okay.  Let's see.  A question on this one.  In the diagram if the top point is moved further down what will the convex hall
+10:11:30 look like?  If this is the top most point, if we -- let me not move it down.  I can't erase easily.  Let's say we add another point onto this.
+10:11:37 Which diagram?  This one.
+10:11:57 Oh, this one.  If we didn't have this point and you had it down -- if this point were moved down to here then this point would no longer be
+10:12:08 on the convex hall because you can slink this by including that edge instead and now this one with the dotted line would be a convex
+10:12:22 polygon that contains these new points if we move this down here.  This point would no longer be on the convex hall.  Basically, this
+10:12:42 problem of finding the convex hall is identifying of all the points which ones are the outer points?  Which would lie on the convex hall as
+10:12:52 opposed to laying internally.  I give this problem.  This is not a random problem.  This problem is actually important in practice.  It has
+10:13:05 applications in computer graphing for example.  You can imagine for different planning problems you are trying to design this fence that
+10:13:15 is as short as possible and encloses given points doing that is this convex hall problem.  As I said, it has applications in many fields.
+10:13:25 This is useful to think about.  How would we design an algorithm which given these points can compute for us this convex hall?
+10:13:38 A good starting point when starting an algorithm is to think how would you solve the problem yourself?  If I gave you this set of points
+10:13:49 what would you do to decide which points need to be on the edge and which don't have to be?  This example is small you can eye ball it.
+10:14:00 If I gave you a huge set of points you may not be able to do that.  How may you do this?  One procedure that may be the first things you
+10:14:18 could think of which is one of the oldest algorithms for this problem is gift wrapping.
+10:14:30 It's called that because it's basically simulation of how you would wrap a present that consisted of all of these points.
+10:14:44 The idea is what we will do is we have this set of points.  Let me draw a smaller example here.  Here as some set of points.
+10:14:59 What we can do is first we start from one point which is gauranteed to be on the convex hall.  An easy way to find such appoint is take
+10:15:06 the lowest point down.  Step one is find the lowest point.
+10:15:19 You can go through all the points.  You have the X and Y coordinates.  We find the one with the smallest Y coordinate.  In this example
+10:15:33 it's this point.  That point has to be on the convex hall.  I will not prove it formly here.  If it's not on the convex hall, if you have another polygon
+10:15:48 that's the convex hall and this point is not included there's no way this would be on the hall because all the other points have to be higher
+10:16:04 because (INAUDIBLE) someone asked could you start it like the top or left point absolutely that works.  I will start from the lowest point.
+10:16:14 It's arbitrary.  You are right.  We could start from the left or highest one, et cetera.  Once we found this point which is gauranteed to be on
+10:16:26 on the convex hall we will pretend we have a big sheet of wrapping paper and start with the wrapping paper going off to the right.
+10:16:37 Now visualize taking this paper and wrapping it around all these points and pulling it tight.  What would happen if you did that?  As you move
+10:16:51 this paper you rotate it that way.  The first point it hits here that's going to be on the convex hall.  That's the first point this paper will get stuck
+10:17:03 at.  Once the paper gets to this point it can't continue moving that way.  This part is now fixed.  If we keep moving this part it's going to bend
+10:17:16 over.  So you have a kink in the paper like that.  If you continued moving the paper over it gets stuck at this next point here.
+10:17:30 We keep wrapping it around and it gets stuck at this point.  At some point we get back to our original starting point.  We move this around.
+10:17:43 It will not get stuck at this point because we get stuck at this point first.  If you take this segment here and rotate it this way we will eventually
+10:17:53 get back to our starting point.  We have enclosed all the points in the wrapping paper and so these segments we found constitute a
+10:18:17 convex hall.  To write that out here the idea is you wrap a, not actual real paper, but we simulate wrapping this paper from that point.  We will say
+10:18:31 counter clock wise.  You can do it the other way but this is how I drew it in the diagram.  You wrap paper from that point counter clock wise.
+10:19:02 All the points the paper gets stuck on are part of the convex hall.  That's the intuitive idea.  How would be implement this as an algorithm?
+10:19:25 What we could do is from this point, to implement this how do we do it?  For wrapping to find out what this first point we will get stuck
+10:19:35 on is we will take this point and you could measure all the other points what are the angles to the points?  For example for point one,
+10:19:48 if we call this, this is point one, this is point two, this is point three and this is point four we could measure these angles to all of these
+10:20:04 points.  The first point that you are going to get stuck on is the one with the smallest angle here.  The one from this is smallest here would be
+10:20:18 point one.  From point one we compute the angles again and find what's the first point you encounter.  The smallest angle starting at
+10:20:36 point one that gets to point two.  Then starting from point two et cetera.  To implement this we can repeatly compute the angles
+10:21:15 to all other points and then this tells us which is the first one encounter when rotating the paper.  Once we have that point we move to that
+10:21:30 point and now we recompute all these angels and proceed.  How long might this take?  I have not formally proven this algorithm is correct but
+10:21:53 you can do a proof based on in tuition that if you wrap paper around it will encounter the vertice of the convex hall.  How long does this take?
+10:22:13 Repeat until we get back to the first vortex.  At which point we have completed wrapping the points.  Now we have the complete
+10:22:27 convex hall.  How long could this take?  We have various suggestions in the chat.  Would anyone like to volunteer to discuss this?
+10:22:36 Kevin, let me unmute you.  Go ahead.
+10:22:51 >>Student:  it has something to do with how much angles a polygon has.  I know there's a constant out there.  I don't know it now.
+10:23:08 A triangle it has hundred eighty degrees roughly.  You take the minus of that for each side which is three hundred degrees.  If you start at
+10:23:26 one point -- it depends on the starting point.  If you start with the line you just drew and do a triangle that has an equal latter al is three hundred
+10:23:29 for each one.  Doing the math for that.
+10:23:40 >>Professor:  you can do something like that to work out the total sum of the angles for all of the -- and arbitrary polygon like this.
+10:23:54 The actual sum of the angles is not as important.  You are right we need to count how many angles we will compute.  Some of you have the
+10:24:11 right idea in the chat.  At every vortex, starting from the first vortex we have to compute angles.  Then we compute the angles again because
+10:24:32 they are different angles and we are wrapping from here and we have to start again.  Each time we visit a vortex we need to compute all the
+10:24:49 angles.  Angles to all the other points.  We need to compute N angles, one to each point.  If we have N points we have to compute N
+10:25:11 angles.  It's actually N minus one.  How many vert ises could we visit?  All these could be on the convex hall.  We have to visit N vert ises.
+10:25:32 In the worse case we could visit N vert ises.  On the order of N squared steps in total.  We will talk later about notations which you may have seen
+10:25:49 in one zero one.  You can say this algorithm is a big O of N squared algorithm in the worse case.  The number of computations is on the
+10:25:59 order of N points.  This is one algorithm.  Using techniques we use in this course we can get a faster algorithm.  We are almost out of time.
+10:26:12 I will give you a quick idea of how that algorithm works.  We can talk about it later.  The point is there's a faster divide and conquer algorithm.
+10:26:34 The way it works is, I will not describe in detail now, the idea is if you have some big set of points what we will do is first split the set of
+10:26:47 points in half.  We will find the convex hall of each set of the points.  The left half of the points we will find a convex hall for that.  We will find a
+10:26:59 convex hall for the right half.  Once we have these we can combine those to get a convex hall for the full set of points.  We will find the
+10:27:13 tangents to these polygons which is these two edges.  Once you add those you get a convex hall for the entire set.  This leads us to a faster
+10:27:25 algorithm.  What we show is if we look at the time required to do this for N vert ises you have to solve two copies of the problem with half as
+10:27:36 many vert ises.  The left and right half.  You do two copies.  If T is the time needed to solve the problem with N vertices you do two copies
+10:27:48 of the half size problem.  Then you find tangents.  That can be done in order N time.  I will come back to this notation Wednesday.
+10:28:03 If we solve the recurrence you get the time this algorithm requires is of order N log N.  By splitting up the problem in this way and
+10:28:12 combining the solutions together you get a faster algorithm than that gift wrapping one.  This technique of divide and conquer is one of
+10:28:19 the main algorithm design techniques we will talk about in this course.  All right.  We are out of time.
+10:28:29 I will stop here.  I will hang around a few minutes if you have questions about this.  Other wise please look out for the syllabus which I will
+10:28:34 post in the next hour.  Thank you.  I will talk to you Wednesday.
