@@ -6,6 +6,12 @@
 Welcome to cse102-notes's documentation!
 ========================================
 
+Transcripts
+-----------
+:download:`1/4/2020: Introduction <_static/lec1.txt>`
+
+:download:`1/6/2020: Algorithms/RAM Model <_static/lec2.txt>`
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

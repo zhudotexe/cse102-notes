@@ -1,13 +1,9 @@
 Introduction
 ============
 
-**Transcript**
-
-:download:`Available here <_static/lec1.txt>`
-
 **What is an Algorithm?**
 
-- Computational processes for solving problems
+- Computational processes for solving problems (i.e. a formal procedure followable by a computer)
 - Foundational subject in CS
     - Even most simple operations, like addition: how do you compute the binary representation of X + Y?
 
@@ -59,4 +55,66 @@ However, there is a faster divide-and-conquer algorithm:
 
 .. image:: _static/intro4.png
     :width: 500
+
+Algorithms
+----------
+*a computational procedure to solve a problem*
+
+Problem
+^^^^^^^
+*a mapping or relation from inputs to outputs*
+
+- **Input**: an instance of the problem
+    - e.g. an input might be a list of points in the convex hull problem
+    - the encoding of the instance into a binary sequence is important - solving for lists of pairs of numbers is different than solving for strings
+- **Output**: solution to the problem instance
+    - e.g. a list of points making up the convex hull, in order
+    - there can be multiple valid solutions for some problem instances, e.g. sorting
+
+Key property of an algorithm for problem P: for any instance of P, running the algorithm on the instance
+will cause it to eventually terminate and return a corresponding solution
+
+If an algorithm does so, it is called *correct*.
+
+To measure the time for an algorithm to execute, we need to define "computational procedure":
+
+Computational Procedure
+^^^^^^^^^^^^^^^^^^^^^^^
+*the RAM model*
+
+Idea: algorithm = program running on an abstract computer, e.g. Turing Machine (CSE 103)
+
+The RAM model is an abstract computer that is more complex than TMs but closer to a real computer.
+
+**Elements of the RAM model**
+
+- registers
+    - store some finite amount of finite-precision data (e.g. ints or floats)
+- random access memory (RAM)
+    - stores data like registers, but with infinitely many addresses
+    - can look up the value at any address in constant time
+- program
+    - a sequence of instructions that dictate how to access RAM, put them into registers, operate on them, then write back to RAM
+    - e.g. load value from RAM/store into RAM
+    - arithmetic, e.g. ``add r3 r1 r2``
+    - conditional branching, e.g. "if r1 has a positive value goto instruction 7"
+
+.. image:: _static/intro5.png
+    :width: 250
+
+So, an algorithm is a program running on a RAM machine - in practice, we define algoritms using pseudocode, and
+each line of pseudocode might correspond to multiple RAM machine instructions.
+
+Runtime
+^^^^^^^
+The *runtime* of an algorithm (on a particular input) is then the number of executed instructions in the RAM machine.
+
+To measure how efficient an algorithm is on all inputs, we use the *worst case* runtime for all inputs of a given size.
+
+For a given problem, define some measure ``n`` of the size of an instance (e.g. how many points in the convex hull
+input set, number of elements in a list, number of bits to encode input). Then the worst case runtime of an algorithm is
+a function ``f(n) = the maximum runtime of the algorithm on inputs of size n``.
+
+Ex. The convex hull gift wrapping algorithm has a worst-case runtime of roughly :math:`n^2`, where n is the # of
+points.
 

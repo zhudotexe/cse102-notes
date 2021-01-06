@@ -1,0 +1,285 @@
+09:21:51 illustrate some of the main steps that you would think about when coming up with an algorithm that will motivate the more formal
+09:22:02 set up we are going to look up today and on Friday.  Just to recap that quickly, the idea in the convex hull problem was your given a set of
+09:22:12 points in the two D plain and one thing we will talk about later today is it's important when you are talking about a problem or algorithm
+09:22:21 for a problem that you are precise about how the input and output are represented.  Here I'm saying that each of the points is given to us
+09:22:32 as a pair of X, Y coordinates and I have not said what X and Y are because we can think of them as floating numbers in binary.
+09:22:47 I would specify how X and Y are encoded as well.  The output we want is a description of the convex hull which is the smallest convex
+09:22:58 polygon containing those points.  In the example on the left if we are given these points as input the convex hull is this sequence of points
+09:23:07 along the outer most edge.  You can think of it as trying to build a fence around all these points which was as tight as possible.
+09:23:22 That's the definition of the problem.  One good way as I was saying last time to start going about coming up with an algorithm for any problem is
+09:23:30 to think about how you may do it yourself.  When people think of this problem the first algorithm they come up with based on how they
+09:23:41 may solve the problem is this procedure called gift wrapping.  Here I written out the high level idea of how it works.  The first step was we find the
+09:23:53 lowest point.  We look at the X Y coordinates and find one with the least Y coordinate.  That's here in this example.  We know that point
+09:24:03 has to be on the convex hull because it's the lowest point.  It's on the edge of the set of points.  We think of taking gift wrap paper start
+09:24:14 from that point and extend it on this line to the right and rotate it around and seeing which points it gets stuck on.  The idea is if you
+09:24:24 tightly wrap this paper around as tight as possible the points it gets stuck on are exactly the points on the convex hull.  This is fine as a
+09:24:34 high level description of the procedure.  This allows someone else to do this procedure themselves, but it's not precise enough as a definition
+09:24:46 of an algorithm for us to analyze because it's not obvious how a computer would simulate the wrapping of the paper around points.
+09:24:55 To make this an algorithm we have to go in to detail about what happens in step two.  That's what we did next.  I will shift this up here.
+09:25:17 Our observation is how we can implement step two is from any given point we are at currently you can find out what the next point the wrapping
+09:25:28 paper will get stuck on my computing the angels your currently at to the other points with respect to a reference line and you look at the least
+09:25:38 angel that represents as you are wrapping the paper around in an arch the least angel tells you which point you first encounter.  You know
+09:25:47 the point with the least angel is the next one I should move to.  Now you can repeat this.  Compute the angels again, et cetera.
+09:25:57 Here we say in more detail how we would implement this algorithm and to be precise if you do this on a home work assignment you should write
+09:26:12 out pseudo code with a loop saying will iterate through until we get to the original point computing these angels.  I will not do that here.
+09:26:22 We will see that later.  That's a more precise definition.  It's formal enough to think about things like is this algorithm correct?  How long
+09:26:32 will it take to run?  I will not go through the proof this algorithm is correct because we will not talk about computational geometry
+09:26:44 in this class.  If you are interested there's a chapter on this or section on this in CLRS.  I will put a reference to that on canvas later today.
+09:26:54 Let's talk about the run time.  The idea that we discussed last time was we need to think about how many iterations this loop of finding the
+09:27:02 next point until you get back to the first vertex can iterate through.  For each iteration of the loop we have to think of how much work we are
+09:27:15 doing.  What we said last time is every time you visit vertex you have to compute on N angels if there's N points.  You have to compute N
+09:27:25 minus one angel.  If we are point one you have to compute to point two, three, four and the starting point.  Computing the angels I have
+09:27:35 I have not said how to do that here.  That can be done using basic math.  We can call that a constant amount of time.  Later today
+09:27:44 we will make that more precise.  What operations we are allowed to say we can do in a constant amount of time?  The primitive operations that
+09:27:57 they just count as a single step of execution.  We have to compute these roughly N angels and how many vertices can we visit?  In the
+09:28:14 worse case every vertex in the set can be on the hull.  We have N iterations in the loop.  The number of computations is N squared.
+09:28:23 The work we are doing could be N squared where N is the number of points.  In algorithm may not actually be that efficient if you have a large
+09:28:34 number of points because if you have million points N squared is much larger than that.  We start with ten to the six points then N square is
+09:28:43 ten to the twelve.  This could quickly blow up.  Where as, if you think about a different approach you can sometimes get more efficient
+09:28:55 algorithms.  I described at a high level here a different type of algorithm which is using an approach called divide and conquer which we will talk
+09:29:04 about next week.  The idea is given the original set of points we are going to split that set of points in to two sets.  Those on the left and
+09:29:14 those on the right say of equal size or close.  Then we will use our algorithm recursively on just these points and just these points.
+09:29:27 That gives a convex hull for the left side and for the right side of points.  The observation is once you have those two convex hull's it's
+09:29:39 relatively fast to glue those together to get a over all convex hull for all points.  Find the dash lines, the tangents between the two polygons
+09:29:49 you can do that in roughly N steps rather than N squared steps.  I will not go through the details here but you can iterate through the points
+09:29:58 on both sides to find the line which is tangent.  Instead of going through a polygon it's tangent.  It touches the sides.
+09:30:10 This algorithm, to figure out how much time this will take requires a little bit more work and this is going to use tools we are going to talk
+09:30:19 about later this week.  The essential idea is since this is a recursive algorithm we can write a recursive equation for how long this
+09:30:34 algorithm will take to run.  If we define T of N to be how long will this operation run and how many operations to evaluate on a set of N
+09:30:44 points.  We get this equation saying if you are given N points the first thing we will do is run two copies of this algorithm on N over two points
+09:30:56 because we split the set in half and we run the algorithm on the left and right half.  That's this term here.  We also need some time to find
+09:31:09 these tangents after the fact.  To get an over all convex hull.  That's roughly N steps.  This notation O of N here is a notation we will define
+09:31:21 today which means an amount of steps which is on the order of N.  It could be less than N like N over two or it could be more than N by
+09:31:30 some constant factor like two N.  O of N means we ignore the constant and say it's roughly of order N.  We will come back to this.
+09:31:42 Now once we have this equation then we are going to talk about some techniques which let you solve the equation and the conclusion you get
+09:31:57 is this function T of N has order N times log N.  This O notations means we may hide constants in here.  There may be a three up front here.
+09:32:08 The number of steps this algorithm will take is roughly N times log N.  Which is much better than N squared if N is large.  Returning to
+09:32:19 our example of N being a million so ten do the six then N squared is ten to the twelve where as N log N is going to be six times ten to the six
+09:32:30 if this was log based ten.  That's better than ten to the twelve.  This algorithm will be more effective if you have a large number of points.
+09:32:43 This is just to illustrate that you can have very different algorithms to solve the same problem and one of the main things we are going to be
+09:32:50 talking about in this course is how do you come up with the most efficient way to solve a problem and now once you have that
+09:33:02 algorithm how do you both prove it always works and analyze how long it will take?  To find out whether it is actually efficient.
+09:33:19 Questions here, why does finding the tangent take N steps in the worse case?  I have not gone through that.  I will not go through it in detail.
+09:33:33 I will put a link a canvas to an explanation of that.  Take that on faith.  I want to illustrate if you could do that simple operation of finding the
+09:33:40 tangent in linear time that let's this over all algorithm to find the convex hull in N log N time.
+09:33:54 How we get to N log N may not be obvious.  We will talk about this toward the end of today and on Friday.
+09:34:09 There's other questions about gift wrapping is it N squared steps or N times N minus one?  You are right it's not exactly N steps.
+09:34:23 That's why I said approximately.  Today we will talk about notations for precisely saying something like roughly N squared steps the till da is
+09:34:31 vague.  We have this notation like this O here that let's us talk precisely about that.  We will come back to that.
+09:34:44 One of the things I want to point out from these examples is in order to really talk about how long an algorithm takes or prove it correct you
+09:34:52 need to be precise about what steps you are taking and how the algorithm works.  Everything here is high level descriptions.
+09:35:07 We will start out today is describing how we talk formally about algorithms, what it means to solve a problem and be efficient.
+09:35:17 The formalisms we talk about today and Friday will let us start looking at techniques for designing algorithms next week.  Mainly this
+09:35:44 divide and conquer paradigm.  Last time I gave an informal definition of an algorithm which was, I said an algorithm is a computational
+09:36:07 procedure to solve a problem.  This is the in tuition.  An algorithm is a procedure a computer can follow.  It's a formal procedure.
+09:36:19 It's not informal instructions a human can follow.  It's computational and solves a problem like the convex hull problem or sorting problem or
+09:36:30 any problem you are interested in.  That's the in tuition.  We need to make it more precise to talk about what does it mean for an
+09:36:39 algorithm to be correct and run and so forth.  What is a computational procedure and what is a problem?  Let me start off with a problem.
+09:36:50 That's easier.  To define what we mean by a problem we are going to think of a problem as being a mapping from inputs to outputs.
+09:37:13 A problem we can think of as a mapping or relation from inputs to outputs.  What do I mean by this?  The idea is you can think of
+09:37:25 some space of all possible instances of a particular problem.  This could be a set of instances of the problem.
+09:37:37 For example, in the case of a convex hull this could be all possible lists of points that you may be given as input.  Then the problem, the definition
+09:37:50 of the problem is really some way of saying for each instance of the problem what are the corresponding solutions?  For a particular set of
+09:38:01 points there may be a unique solution.  We would have some instance of the problem in here that would map to a corresponding solution
+09:38:11 over here.  For some problems there may be actually multiple valid solutions for a given instance in which case the problem wouldn't be
+09:38:20 a function or mapping saying for every instance here we have a solution there.  It may be a relation saying for one instance here you have several
+09:38:35 potential solutions over here.  Just to write this down formally the idea is in a problem we have the input is an instance of the problem.
+09:38:48 Where what I mean by an instance is it's one example of a possible version of the problem.  We defined the convex hull problem in
+09:38:59 general, but an instance of the convex hull problem would be a specific set of points you want to find the convex hull for.  For example,
+09:39:18 a list of points in the convex hull problem.  That's what I mean by an instance it's a specific input you could add to your algorithm.
+09:39:29 One thing that's important about instances is we have to be clear about how the instance is encoded.  In the case of the convex hull problem
+09:39:43 I'm saying it's a list of points.  What do I mean by points?  Previously I said a point was an X Y pair with coordinates.  The encoding
+09:40:03 of the instance in to binary because in a computer everything is represented by a binary sequence.  A sequence of zero's and ones.
+09:40:16 The encoding in to a binary sequence in order for the computer to be able to operate on it is important.  For some problems you could
+09:40:29 encode them in to zero's and one's in several different ways and how your algorithm will work could vary depending on that encoding.
+09:40:54 For example, in the convex hull problem if we had an encoding like X Y pairs with X and Y being floating point numbers that's one possible
+09:41:10 encoding of these points, but if I had a different encoding we may need a differential algorithm.  This would be different from X and Y being
+09:41:26 arithmetic expressions.  Like maybe if we allowed something like X equals the sign of the square root of five or something like this.
+09:41:40 You could represent this as a string saying it's the sign function or as letters sin and square root symbol and five.  That forces us to
+09:41:48 use a differential algorithm.  Our algorithm when it's trying to compute the angels between two points if we have a representation like
+09:41:56 this where you have an expression we need to have some way of evaluating the sign function and square root.  If we are given X
+09:42:05 and Y directly as floating point numbers we don't have to worry about that.  It's important when talking about an algorithm to talk about how
+09:42:16 exactly the input is being represented.  Normally if you have a problem like working on list of integers and floating point numbers we
+09:42:25 assume we have standard encoding of floating point numbers.  The details of that will not be so important.  If your working on graphs
+09:42:37 as we will talk about in a couple of weeks there could be multiple different ways of storing a graph as zero's and one's which will have
+09:42:51 different advantages and disadvantages.  Be clear which encoding you are using.  What is this word?  Binary sequence.  A sequence of
+09:43:05 zero's and one's.  That's the raw representation in the computer is zero's and one's.  How you encode a number in zero's and one's or a
+09:43:16 string and graph is relevant when talking about how quickly an algorithm runs.  Is it possible to convert between different encodings?
+09:43:25 Absolutely.  Maybe the points coming in are not plain numbers they are expressions like this we are convert it back to the floating point
+09:43:36 expression by using an algorithm that computes square roots and the sign.  We have to be careful about how many precision we need
+09:43:51 if we have sign of square root of five this is a representation of a number with infinite precision.  We are saying mathematicly it's this
+09:44:00 number.  If we evaluate it to this precision (INDISCERNIBLE).  That's something to be careful about with numeric algorithms.
+09:44:08 We will not talk too much about numeric algorithms in this class.  When it comes up it's something you need to think about.
+09:44:18 This is to say we should be careful when defining what exactly instances of a problem are.  Once you defined what the inputs are then the
+09:44:32 next step of defining the problem is to say what the desired outputs are.  The output is the solution or a possible solution to the problem
+09:44:47 instance.  We are given some instance of a problem.  Now the corresponding output is some solution to the instance of the problem.
+09:45:06 In the case of the convex hull problem it could be a list of points making up the convex hull and we could say in order.  Maybe not in some
+09:45:17 random order but in some order as you go around the polygon.  As I mentioned before, if's not necessarily the case there is a unique
+09:45:26 solution to the problem instance for some problems there could be multiple valid solutions.  Let me write that down so we have it.
+09:45:49 There can be multiple valid solutions for some problem instances.  One example of that could be if you think about the sorting problem.
+09:46:14 If I give you a list of things to sort by some key let's say we have things which can be equal to each other so if we have one, two, and two are
+09:46:26 the keys in the list this is actually already in assorted order.  If you have these two objects that are the key you are sorting them on is two
+09:46:40 those two can appear in either order in the sort list because they are equivalent by the number we solve by.  There's multiple permutations
+09:46:50 of this list which would be in the sort order.  Those would be valid solutions for an algorithm to return given the particular instance.
+09:47:11 Once we defined the problem by saying what the desired inputs and outputs are then the key property an algorithm for the problem would
+09:47:31 have to have is when you run it on any instance of the problem what you get out is a corresponding solution.  The key property of an
+09:47:57 algorithm for this problem, for any problem you have define in this way say for problem P, for any instance of P running the algorithm
+09:48:15 on that instance gives you back one of the valid solutions.  In fact, not only does it give you that back something implied by the fact
+09:48:30 that you get the answer back is the algorithm has to terminate.  Running the algorithm on the instance will cause it to eventually
+09:48:54 terminate and return a corresponding solution.  One of the solutions which you have defined as being the right solution for that particular
+09:49:16 instance of the problem.  This is what it means for an algorithm to be correct.  For any possible input that's of the right form, any instance
+09:49:28 of the problem that you care about the algorithm will eventually finish.  It will not get stuck in an infinite loop.  And it will then return a
+09:49:48 solution to the instance that you gave it as input.  This is what it means for an algorithm for the problem P to be correct.
+09:50:07 Proving the correctness of the algorithm which we will talk about for examples requires you to formally define the inputs and outputs for
+09:50:19 the problem so we can prove on every possible input the output you get is one of the desired solutions.  We need to say what are the
+09:50:32 valid outputs.  In sorting we have to say the desired output for the problem is a permutation of the original list which is in the sort order.
+09:50:49 Increasing order or decreasing order.  Just to reiterate there's two parts to this condition that the algorithm is correct.  First, that the
+09:51:02 algorithm actually terminates and second that it returns the right answer.  Note, there are two parts which you would have to prove
+09:51:15 if you want to show the algorithm is correct.  One is termination.  Because we don't want an algorithm that can run for ever.
+09:51:40 We don't want an algorithm that can get stuck in an infinite loop.  Second, having the correct output or a correct output.
+09:51:51 When you are trying to prove the correctness of the algorithm you have to remember to do both of these two things.  Sometimes people
+09:52:03 forget to do the first step to rule out the algorithm will not get stuck in an infinite loop.  It's easier to prove when the algorithm does
+09:52:15 terminate then it's output is correct, but that doesn't actually show the algorithm is completely correct.  In some cases it can terminate and
+09:52:23 give the right answer but in other cases it's stuck and doesn't terminate at all.  You need to rule that out as well.
+09:52:36 In fact we don't just want an algorithm that doesn't get stuck in an infinite loop we want algorithms that terminate in a reasonable amount of
+09:52:49 time running for five years is as bad as running for ever.  In order to make this concept precise of how long it takes a algorithm to run
+09:53:01 we need to make the notion of a computational procedure precise.  If we go back here remember I said we have to define both of these
+09:53:11 terms.  What is a problem?  We have done that.  We think of a problem as mapping of inputs to outputs.  What do we mean by
+09:53:19 computational procedure?  We need to define this so we can talk about what are the steps an algorithm would execute to measure how long
+09:53:56 those take.  For defining a computational procedure we are going to use a model.  To measure the time for an algorithm to execute
+09:54:25 we need to define what we mean by a computational procedure.  For that we are going to be using a widely used model called the RAM
+09:54:43 model.  This is a model of computation which those of you who have taken one hundred three you will remember the concept of a model
+09:54:55 of computation.  If you have not taken the class don't worry.  We will learn more models of computation in that class.  This is different
+09:55:09 from the one in one zero three.  It's more convenient for analysis of algorithms because it more accurately represents real world computers.
+09:55:37 The idea is we are going to think of an algorithm as a program running on an abstract model of a computer.  We don't want to define
+09:55:47 an algorithm in terms of actual computers like your lap top because those are too complicated.  Think of the fancy hard ware and the
+09:56:06 things going on in the CPU.  Instead we will define an abstract computer which is easier to think about mathematically.  The amount of time
+09:56:16 an algorithm takes on a abstract computer correlates to how long it would take to run the algorithm on a real computer.  How you
+09:56:30 define this abstract computer depends on the area you are in.  In one zero three, we use the model of an abstract computer called the
+09:57:00 tering machine.  We will not get to that.  It's one possible model.  One model of an abstract computer is the tering machine.  This you will learn
+09:57:11 about in one zero three.  The tering machine is convenient theoretically.  When talking about complexity and compute ability theory it's
+09:57:21 useful because it's a simple model that's easy to analyze.  For our purposes here in analysis of algorithms we use a complex model
+09:57:47 that's closer to actual computers.  The RAM model is a different abstract computer which is more complicated than a tering machine, but
+09:58:03 closer to an actual real world computer.  This is the one we are going to use.  Because it's more complex I'm not going to define it completely
+09:58:15 formally.  Just give you the important points about it that will allow us to then analyze algorithms.  Let's look at what the elements of this
+09:58:44 RAM model are.  The idea -- okay how you should think of this RAM model is it's a very slimed down version of how a real computer works.
+09:59:00 It has various elements that may be familiar to you from when you saw some computer architecture.  You have a program that's running
+09:59:22 on this computer.  The program can access a couple of different types of memory.  We have registers and these registers will store numbers
+09:59:43 and we also have a larger piece of memory which is called the random access memory.  This is what the name the RAM model comes from.
+09:59:56 The idea is that the program is a sequence of instructions that tell you how to read values out of the memory, put them in the registers, do
+10:00:07 math operations on them, put results back in to memory, et cetera.  The program is basically controlling what values you read and write from
+10:00:20 these and what operations you apply to them.  If you think about in a simple computer we have the ALU if you have seen that in architecture
+10:00:32 class that applies math applications to the registers.  The program shows how data flows back and forth between the registers and
+10:00:55 ALU.  To make this more precise here the idea is we have the registers which are storing some finite amount of data which we can think of as
+10:01:07 being integers or floating point numbers, but the essential thing about registers is they are finite size.  You can't store an infinite precision
+10:01:28 number in them.  These are registers storing finite precision integers or floating point numbers.  What we mean by finite precision can vary
+10:01:38 depending on the model you have exactly.  We could say thirty two or sixty four bit is the most common in today's computers.  It could be
+10:01:52 sixty four bit precision.  The point is it's finite.  You can't store arbitraryly large numbers in these registers.  You only have a finite amount of
+10:02:02 memory in each register.  We have these registers that are fixed size.  Then we have the random access memory which is not fixed size.
+10:02:20 Random access memory which can store any number of these fixed precision integers or floating point numbers.  At every particular point
+10:02:31 in the memory, if you look at a particular address you just have one of these finite precision numbers, but memory is unbounded.  You can use
+10:02:52 as much of it as you want.  You don't just have affixed number of them.  This stores numbers as above at each address, but with infinitely many
+10:03:11 addresses.  You could look at address one and two, et cetera and use as much memory as you want.  In practice we don't want to use an arbitrary
+10:03:22 amount of memory.  In the model you have an infinite pool of access memory.  It's not limited like the registers.  What I mean by storing
+10:03:42 numbers as above is they are storing the same types of numbers as the registers.  The value at address five for example would be a sixty four
+10:03:55 bit number.  The reason it's called random access memory is you do not have to read this memory in any particular order.  In fact you can
+10:04:05 compute an address that you want to look up the memory in and then read the value at that address in constant time.  Random access
+10:04:35 means we can look up the value at any address in constant time.  This is different from earlier forms of memory that people had in early
+10:04:44 computers where you had to go through an order.  Think of magnetic tape were your starting at one point on the tape and you can read
+10:04:52 numbers in order by reading the tape through the machine.  You can't jump to some particular point of memory.  Where as on modern
+10:05:04 computers if you think of a language like C you have appointer which can point to any where in memory and looking up the value at that
+10:05:15 address is a constant time operation.  It's something you can do instantly.  It's a primitive operation.  This is the kind of memory we have
+10:05:26 in the model.  Question here, is the memory really unlimited because you can't really have infinitely many addresses?  It's a great [PWOEUPBT].
+10:05:33 point.  On a real program the addresses would be stored as sixty four bit integers as well.
+10:05:42 You don't have infinitely many addresses.  You can address a finite amount of memory.  In practice it doesn't better for simple
+10:05:55 algorithms like the ones we will talk about because for those algorithms you will fit within two to the sixty four bits of memory, but you are right
+10:06:05 if your working on huge amounts of data that don't fit in your memory then you need to think about algorithms that try to minimize the
+10:06:14 disk use you have to use.  If you can't store everything in memory everything has to be on the hard drive and then you want to minimize
+10:06:22 how long you have to transfer data from the hard drive to memory.  This is important too but it's not something we get to in this class.
+10:06:32 Our RAM model is going to assume we have an infinite amount of memory even though in practice that's not the case.  Good question.
+10:06:53 We have the registers and we have the memory.  The last thing we need is what can you do with this?  That's what the program does.
+10:07:14 The program, it's the last element of the model here, the program this is a sequence of instructions to execute where an instruction could be
+10:07:27 basic types of operations that you are familiar with from computer architecture.  For example, you could load a value from RAM.
+10:07:41 You could say let's look at address thirty seven, get the value and put it in register five.  That's an example of an instruction.  Or you could put a
+10:07:55 value back in to RAM.  You can store in to RAM.  This is one time of instruction.  We also have the arithmetic operations.
+10:08:13 These would be things like add registers one and two.  So, you take the number stored in register one and add it to the register in two and
+10:08:31 then say store this in register three.  That would be a basic arithmetic operation.  We assume in the RAM model that you can apply
+10:08:44 any basic math operation, addition, multiplication, division for both integers and floats point numbers all those basic operations are
+10:08:57 built in the machine.  Do we use assembly in this class?  No definitely not.  Don't worry about that.  If you have seen assembly it's
+10:09:10 similar to that.  Programming the RAM machine is giving an assembly program to run on this simple computer.  We will not look low level.
+10:09:28 We use pseudo code so create an array of this length.  We don't worry about low level details.  We have arithmetic operations.  We have
+10:09:44 branching.  In particular, conditional branching.  For example, if register one has a positive value go to instruction number seven.
+10:10:12 In the usual way this conditional branching instructions with would allow you to implement things like if statements and loops.  You could say
+10:10:24 repeat for every vertex in the graph.  That could be implemented on the RAM machine by storing some array of the vertices in the RAM and
+10:10:34 now you go through loading each vertex in turn and do a conditional branch when you get to the end of the list.  These are the basic
+10:10:45 operations that the program for the RAM machine can execute.  You have a sequence of instructions of these three types.  You normally
+10:10:54 execute them one at a time.  Because you have branching instructions you can't be moving around so you have loops.  Just like you have
+10:11:05 in an assembly language problem.  This is the whole RAM model then.  Basically, what we mean by an algorithm now is a program that
+10:11:22 runs on this machine.  An algorithm or computational procedure is then a program running on a RAM machine.
+10:11:33 If we were to do this completely formally you have to define your algorithm as a sequence of these instructions where you have these
+10:11:45 three types of basic things.  You can move things in memory and do arithmetic and branching.  That's formally what we mean by an
+10:12:11 algorithm.  In practice, what we do in this class will define algorithms using pseudo code.  In this pseudo code using pseudo code we can
+10:12:35 say where you can use if while for et cetera.  These constructs you may be familiar with from C, java or Python.  As long as you can justify
+10:12:45 each pseudo code can be (INDISCERNIBLE).  If you write something down in your pseudo code that takes more than one step on the RAM
+10:13:13 machine.  The note here is that you need to be careful when a line of pseudo code could take multiple instructions of a RAM machine.
+10:13:23 How we are going to define the run time of an algorithm is going to be how long it takes to run on a RAM machine.  How many of these
+10:13:31 basic primitive instructions do you execute before the algorithm finishes.  If you write a line of pseudo code that looks simple to you
+10:13:41 but takes many instructions to execute then you may count the run time wrong if you look at how many lines of pseudo code you execute.
+10:14:11 Sorry, this is could.  Sorry I'm trying to write clearly.  The run time of the algorithm or running time of an algorithm is the number of steps
+10:14:28 of execution on the RAM machine.  The number of executed instructions.  That's how we will define the run time.  What's the word
+10:14:38 after multiple?  This is instructions.  Sorry about that.  On the next page I will write larger.  What I'm saying is the way we define the run time
+10:14:49 of the algorithm is how many of these basic steps you execute.  You need to be careful that when you are writing pseudo code it may be
+10:14:59 something you can write in one line of pseudo code could take multiple instructions on the RAM machine.  It may be it's not like a single
+10:15:11 arithmetic operation but you have to do stuff in memory first before you do the arithmetic operation.  Under this definition an important thing
+10:15:25 to note is we are assuming that every one of these operations takes a single unit of time.  For example, adding two registers together takes
+10:15:36 one unit of time.  This is why we require that the registers and numbers stored in registers and in RAM have a finite amount of precision.
+10:15:47 If we allow them to be arbitraryly long numbers then this assumption of saying doing an addition operation takes constant time wouldn't make
+10:15:58 sense.  If you have numbers with many digits it will take longer for your hardware to add them up.  We make this assumption of saying all
+10:16:07 all the numbers have affixed amount of precision to justify the assumption that all the arithmetic operations take one unit of
+10:16:27 time.  A question of why do we have registers can we just have RAM?  It's the convenient way of defining things.  If you have operations
+10:16:38 where he said take the numbers stored at address I and take it to address J and take it to address K then you can get rid of
+10:16:48 the registers.  The details are not important for us.  I'm defining the model here just so you get an idea of how it's done formally.
+10:16:59 As long as you can justify that everything you are doing can be done in some finite number of these basic types of operations.  Moving
+10:17:10 around memory, and branching.  Then you can just deal with pseudo code and not deal with how you are moving memory around and
+10:17:18 which registers you are dealing with.  Another good question, does having more registers mean we have a more powerful computer?
+10:17:29 Good point.  I will not talk about this now, but essentially no as long as you have enough registers depending on how you set up the
+10:17:38 model you may need three or something like that.  Once you have some relatively small number adding more doesn't give you further
+10:17:49 power.  In one zero three we talk about this a little bit more detail if you are interested.  There's lots of different models of come pow [TAEUGS]s.
+10:17:57 Computations.  Sometimes the registers matter but in RAM it doesn't as long as you have a few.
+10:18:06 Let me see how we are doing on time.  We are getting close to the end here.  Let me say a couple more things on run time and then I want
+10:18:24 to get to asymptote notation.  Now we have defined here what the run time of an algorithm is.  This is the run time on a particular input.
+10:18:35 If we have a particular input then you can run the algorithm and see how many instructions you execute.  If I gave you a different input it may
+10:18:53 run for a different amount of time.  Really I should say the run time of an algorithm on a particular input, but now of course we want to know
+10:19:03 what's the run time over all possible inputs?  We don't know ahead of time when designing the algorithm what the exact inputs you are
+10:19:24 going to get are.  For that reason we look at the worse case running time.  To measure how efficient an algorithm is on all inputs not
+10:19:52 just a particular one we use the worst case run time.  The worst case running time for all inputs of a given size.  The idea is for each
+10:20:13 type of problem, for each problem you care about will define some notion of size.  For a given problem define some measure which
+10:20:28 we usually call N of the size of an instance.  For example in the convex hull problem the natural N is how many points do you have in the set
+10:20:38 you are given as input.  For other problems it's other things.  If you are sorting a list N could be the number of elements in the list.
+10:20:46 Actually the general measure we use if there is no the a specific one that's useful for the problem at hand is the number of bits to
+10:21:08 encode the input.  Usually the number of bits needed to encode the input.  That's the most general one.  For particular problems we
+10:21:27 use other notions of size.  It could be the number of elements of a list, or the number of vertices in a graph, et cetera.  An important point
+10:21:35 of defining a problem not only giving the inputs and outputs but also saying how are we going to measure the size of the input?
+10:21:45 Depending on how you measure the size you may have algorithms that are efficient or not.  Once you define this measure of the size then
+10:22:30 we will say the worst case run time of an algorithm is a function, we will say F of N, which is defined as the maximum run time of the
+10:22:52 algorithm on inputs of size N.  Remember, we said a condition of it being a correct algorithm is on all possible inputs it terminates.
+10:23:04 At some point the input will finish.  There's only finitely so many of those.  You look at how long it runs on each input and maximize
+10:23:38 each of those and it's the worst case run time.  For example, if you think about the convex hull gift wrapping algorithm the argument we
+10:24:00 gave before basically shows that the worse case run time of that algorithm is something of order N square.  Roughly N squared if
+10:24:17 N is the number of vertices.  We could find for any given N some set of N points where the algorithm takes roughly N squared steps.
+10:24:26 To measure exactly what the run time is we have to be more formal with the algorithm and figure out how many of those instructions it has to do.
+10:24:36 It had to compute N squared different angels in the worse case so the N time is around N squared.  It may be five N squared if it takes
+10:24:46 five steps to compute a single angel or something like that.  We don't care about the details now.  Question, does that mean the same
+10:24:54 set of N points but you are looking at all the different calculations you have to make?  The idea of the worse case run time is we would look
+10:25:02 over all possible sets of N points and saying what's the longest the algorithm could take on any of those possible inputs?
+10:25:13 An input to the algorithm is one set of N points.  It may be the algorithm runs longer on some N points than others.  For the worse
+10:25:26 case we need to look at the longest it could run over the inputs of that size.  We are looking at ones of given size is if you let the input get
+10:25:39 larger the input will take longer to run.  This function F of N grows with N like N squared that means the run time of the algorithm is
+10:25:53 growing like N squared as opposed to if you had only N steps that grows linearly as the problems grow larger.  We are out of time for today.
+10:26:04 We will end here.  What we will do on Friday is we will talk more about worse case run time.  We will talk about what we mean by an
+10:26:17 efficient algorithm which is this function F grows slowly.  It grows like a polynomial rather than an exponential function or worse.  We will talk
+10:26:28 about asymptote notation for talking about how quickly different functions grow as a function of N.  That leads us in to recurrence
+10:26:40 relations so how we analyze the run time of recursive algorithms.  Thank you I will see you on Friday.  There is a question about the home work.
+10:26:48 The first home work will be posted in the next couple of days.  It will be due a week from Tuesday.  You will hear about that soon.
+10:26:58 The zoom links for sections and office hours which start today have been posted on zoom for the ones today.  You should be able to find
+10:27:05 everything there.  I will hang around if you have extra questions.  Thank you everyone.  See you later.
