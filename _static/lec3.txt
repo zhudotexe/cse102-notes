@@ -1,0 +1,273 @@
+09:20:14 >>Professor:  good morning everybody.  We will wait another minute for some more people to join and then we will get started.
+09:21:37 Hi everybody.  Let's pick up where we were last time.  To refresh your memory we had been talking about our formal definition of
+09:21:47 what it means for something to be an algorithm.  Our definition was it's a program running on this abstract computer.  The RAM machine.
+09:21:57 You can think of as a watered down version of an actual computer.  It has all the essential components.  It has memory.  It has a way
+09:22:07 to do arithmetic operations and you can have conditional branching like if statements and loops.  Once we made that definition we can
+09:22:16 talk about the run time of an algorithm by asking on a particular input how many steps does it take for the program on the RAM machine
+09:22:25 to finish much the last thing we said was that when we want to talk about how efficient an algorithm is in general we don't care about
+09:22:38 how long it takes on a specific input.  We want to use the algorithm on many different inputs.  We will look at the worse case run time.
+09:22:46 For every particular problem we are interested in we will have some measure of the size of the problem instance.  In the convex hull
+09:22:55 problem we talked about it could be the number of vertices or the number of points in the set you are given.  In general, if we don't have
+09:23:04 more convenient notion of size you can say the size is the number of bits in the input.  Because ultimately the actual input to any
+09:23:14 algorithm is some sequence of zero's and one's that's how it's represented in the RAM machine.  Once we defined some size
+09:23:25 measure then we can ask what is the worse case run time of the algorithm on all inputs of size N?  We can say for this con vehicle hull
+09:23:38 all algorithm if I give points of size N how many steps can the algorithm take in the worse case?  Look at all possible size of points of size
+09:23:49 N and count the steps the machine runs for and the largest number of steps you can possibly get is what we will call the maximum run time
+09:24:03 of the algorithm or worse case run time.  By the analysis we had done earlier this week the gift wrapping algorithm for the hull where you
+09:24:11 take this paper and pull it tight around the points has a worse case run time of roughly N squared if N is the number of vertices.
+09:24:22 We had N iterations in the worse case and each iteration required us to compute N angels.  In total, we are doing roughly N squared
+09:24:32 amount of work.  If we are precise we have to figure out on the RAM machine how many arithmetic operations it would take to
+09:24:44 compute each angel.  Then we would find out the exact number of steps was something like five N square plus ten, but generally
+09:24:53 to simplify things when we are talking about analysis of algorithms we don't care too much about multiplication factors out in front whether
+09:25:04 whether it's five or three N squared.  Because that depends on the hardware you are running the algorithm on.  What we care more about
+09:25:18 is the growth rate of this run time.  Is it N squared or N cubed or in factor al?  That gives information about if this is useful without
+09:25:29 being too specific about what hard ware we are using.  For that reason we are going to introduce notation for talking about the asymptotic
+09:25:38 growth rate of the run time rather than being concerned with the exact run time function.  The exact number of steps needed is.
+09:25:57 Just to -- before we introduce that notation I want to give an example of some pseudo code because I mentioned last time one issue with
+09:26:07 using pseudo code rather than the formal definition of the RAM machine is you may write down something that actually looks
+09:26:17 like a simple computation but takes many steps on the RAM machine.  We need to be careful about that.  Let's look at an example.
+09:26:47 Suppose we looked at a simple algorithm for sorting.  Sorting by brute force.  The sorting problem I mentioned before and you may have
+09:26:56 may have seen this in one zero one is to take a list of elements, say integers, and put them in to some order.  Maybe increasing order.
+09:27:08 One simple algorithm for that is the brute force algorithm which we could write in pseudo code like this.  Let me mention first that the
+09:27:17 notation I use for pseudo code is not necessarily what you have to use when writing up your home work.  If you prefer a different notation
+09:27:26 that's fine.  As long as it's clear and precise.  This is a notation I'm going to use.  You will see in the two text books I have references in the
+09:27:36 syllabus they have different notation for their own pseudo code and you can use either of those.  That's totally fine.  When writing down
+09:27:56 the algorithm we need to say what the input is.  The input to this algorithm would be an array of integers.  Let's call it A.  We will write
+09:28:06 the elements of the array like this.  We can say this is an array where the first element we can call that A brackets zero.  The next element
+09:28:17 A one.  This notation will look familiar to you if you used C or Python.  Both of them use this same notation for indexing in to an array.
+09:28:35 All the way up to, say, the Nth element which would have index N minus one.  This is our input.  How the algorithm works we have two lines.
+09:28:50 I will put line numbers here.  You don't have to include those.  Line one we say for all possible permutations of the array, let's call it
+09:29:02 permutation B of A -- we will try all possible permutations of this array and see if we can find one that is in the correct order.  For each of the
+09:29:22 permutations we will check if B is in increasing order then we have found a assorted version of array A and we are done.  We will return that.
+09:29:36 That's the whole algorithm.  One of these permutations has to be in increasing order.  We don't need a line three.  We are going to return
+09:29:49 at some point during this.  This would be probably -- this is the simplest possible sorting algorithm to write down in pseudo code.
+09:29:58 The thing to be careful about here is although this is a perfectly fine description of the all algorithm if you are trying to explain it to another
+09:30:08 human being, in fact, if you wrote this in your home work this is fine pseudo code to give.  However, you are glossing over some details
+09:30:21 of how you would implement this.  In particular, line two for example, this check if B is in increasing order this check here is not an operation
+09:30:30 that is built in to the RAM machine.  That's not a constant time operation.  It's not one of those primitive operations you can apply
+09:30:41 as a single step.  If you were trying to figure out the run time of this algorithm it would be a mistake to assume this line two for example
+09:30:51 runs on a constant time.  In fact, someone is pointing out in the questions it's also unclear how do you generate the possible
+09:31:02 permutations?  That requires some algorithm to numerate the permutations and you have not described how you are doing that
+09:31:12 either.  In this class we will generally, when thinking about writing pseudo code on a home work, we will generally accept high level
+09:31:22 pseudo code like this.  However, when you are doing an analysis of the run time you need to justify how long it takes to do these things.
+09:31:32 If you have not explained how to do a check here and as a result you maybe think it could be done in constant time but it can't you may
+09:31:45 loose points.  If you are not sure how long a step in your pseudo code will take it's good to expand it out explicitly.  For line two, if you want to
+09:32:00 write this formally to exlain how you will do this check you can say what does this mean?  We will check if we look at say the Ith element of B
+09:32:14 and compare that to I plus oneth element we need to check this inequality holds for all I less than N.  All the way up to or all the
+09:32:26 all the way up to N minus two so at the end we would be comparing the last two elements.  Check if this inequality holds for all I
+09:32:38 strictly less than N minus one, for example.  You could have written this out explicitly by having another loop where you loop over I from
+09:32:49 zero up to N minus one and checked this inequality.  Now you have gotten down to operations that clearly can be done in constant time
+09:33:02 on a RAM machine.  We are looking up a given element of an array.  We can do that as a single step in the RAM machine because of the random
+09:33:10 access memory.  You can load, from memory, the value at index I and the value from I plus one and do a conditional branching to check
+09:33:20 whether this inequality holds our not.  You don't need to go to the details of how one does this check in terms of the primitive operations
+09:33:33 of the RAM machine.  Once you have this detail it's clear this can be done, each of these checks can be done in constant time in the RAM
+09:33:44 machine.  How long will this take?  You do it from I up to in minus one.  You have zero, one, two, three to N minus two.  The total time
+09:33:58 this line takes is on the order of some multiple of N steps.  In fact, using the notation that we will introduce in a second this will take O of N
+09:34:09 time.  This means it could be N or two N or three N.  Some multiplication factor times N would be a bound on how long it would
+09:34:24 take to execute this line.  Similarly for line one you would have to give an algorithm for figuring out how to enumerate the permutations.
+09:34:33 I will not get to this because we don't need it for the class.  If you are interested in this problem it has a long history going back to the
+09:34:44 seventeenth century.  There's a bell ringing in England where they ring church bells in all possible permutations.  There's medieval algorithms
+09:34:52 for finding all the permutations.  To be careful here you would have to also explain how you are finding all possible permutations.
+09:35:02 You can efficiently find each successive permutation.  You count how many there are and how many possible permutations are there if
+09:35:30 you have an array of N elements.  There's N factor al permutations.  That would allow you to conclude that this algorithm in total the
+09:35:51 algorithm will take on the order of N factor al times N steps.  I'm being vague because to do this comparison would be constant time.
+09:36:01 It's five steps and you have a factor of five which I'm suppressing.  Question.
+09:36:13 >>Student:  is it possible to provide an example of a step that wouldn't be able to run in constant time so we can keep that in mind?
+09:36:24 >>Professor:  sure.  Line two, if you do a check if you have array B.  Checking if that's in increasing order or not is something you can't do
+09:36:35 in constant time.  Not obvious you can do it in constant time.  That's not an operation, this checking whether an array is an increase in
+09:36:44 order it's not built in the RAM machine.  Where as looking up an element in the array is built in the RAM machine.  Comparing
+09:36:57 integers is built in the RAM machine.  Those things are constant time.  Something difficult like is this array assorted?  That's not something
+09:37:00 you can assume to be done in constant time.
+09:37:02 >>Student:  understood.  Thank you.
+09:37:13 >>Professor:  a couple other questions from the chat here.  First of all, why are we multiplying N squared by N?  I should clarify.
+09:37:24 The pseudo code says we repeat line two for all possible permutations.  How many times in the worse case, suppose the assorted permutation
+09:37:34 was the last one we consider then in that case we have to go through all possible N factor permutations and each permutation we have to do
+09:37:47 this check which takes roughly N time.  In total, the worse case run time would be N factor al times N.  On the order of this many steps
+09:38:03 in the worse case I should say.  Of course, it could take fewer than that if you got lucky and found the sort permutation early on.  A couple
+09:38:14 of other questions here.  How do we know you could compute all the permutations in N factor time?  I have not shown that.  To be
+09:38:22 precise we need to give an algorithm for going through all possible permutations and I'm not getting to the details here because it's
+09:38:31 not important.  I want to give an example.  I will put a link of canvas if you are interested in how to do that.  There's a simple algorithm
+09:38:46 for doing that.  To clarify what is going on in the parenthetical.  The point is to say these two lines of pseudo code are an accept able
+09:38:54 answer if you are finding an answer for sorting.  The the issue with the answer is it's not clear what the run time is because it's not clear
+09:39:03 how to implement high level operations you are giving.  Going through the permutations and checking if it's in increasing order.  If you have
+09:39:16 a case like that were you don't know how to implement the high level operations you want to expand out to lower level operations.
+09:39:27 We can replace this check B is in increasing order with this thing in parathese which says how do we check if B is in increasing order.
+09:39:48 The message is high level pseudo code like this is okay.  It's okay to give a high level description where you don't exactly say how you are
+09:40:14 shuffling around the values, but you should be careful about the run time of the operations.  If you just write a very high level description
+09:40:23 like this and as a result you get the wrong answer for the run time then you will loose points.  Where as, if you write something more explicitly
+09:40:36 doing something like this, this may help you realize it's nontrivial to check if it's in increasing order.  I need a further loop to do that.
+09:40:48 It's fine to do it at a lower loop and have explicit loops but it's okay if we establish -- now we know it's easy to check in linear time that an array
+09:40:58 is in increasing order.  It's okay to have a line that says check if this is increasing order.  You don't have to always write out an explicit
+09:41:08 loop like this one.  If you are unsure about how long it will take to do something then write how you would implement it explicitly
+09:41:24 in terms of operations like looking up arrays and doing comparisons.  I will write that down.  If you are unsure how long a high level
+09:41:52 step could take expand it in to simpler operations.  Another question that had could in the chat was how do you determine the run time
+09:42:03 if you have a recursive function?  This is excellent.  This is something we will talk about later today.  That's something that will be useful
+09:42:13 because next week we will talk about the divide and conquer algorithms which are recursive.  We will come back to that shortly.
+09:42:26 Let me see if we have anymore questions.  Do you have to always write in the worse case or can you say what the run time of the algorithm is?
+09:42:39 You don't have to say in the worse case every time.  That's implied unless you say other wise.  Now we need to talk about the notation
+09:42:49 -- sorry I should say this was an example of pseudo code but how I want to talk about what we mean by an algorithm being efficient.
+09:42:56 Now that we have talked about the run time and how you count the number of steps of an algorithm what does it mean to be efficient?
+09:43:20 We will use a simple definition of efficient that's widely used in analysis of algorithms.  For us, efficient will mean polynomial time.
+09:43:39 What does that mean?  That means the worst case run time of the algorithm is bounded by some polynomial in the size of the input.
+09:44:08 I should say it's upper bounded.  It's bounded above by some polynomial in the size of the input.  For example, we said before
+09:44:37 the convex hull algorithm was bounded by N squared.  With some constant in front.  C N squared for some constant, C.  If we
+09:44:45 want to count exactly how many steps were needed we have to take in to account how many arithmetic operations are required to
+09:44:57 compute an angel.  We get a constant out in front.  The point is the number of steps is at most C times N squared for some C and
+09:45:09 so the run time is now bounded by a polynomial in the size of the input instance because this is C N squared is a polynomial.  If we have the
+09:45:31 sorting algorithm we just saw, so the brute force sorting algorithm can take more than N factorial steps.  We saw that.  It's not
+09:45:47 polynomial time.  Let's see.  Sorry.  It's blurry here.  It says it's bounded above my some polynomial in the size of the input instance.
+09:45:57 What I mean is the variable in the polynomial is this N which measures the size of the problem.  If your algorithm can take more than N
+09:46:13 factorial steps there's no polynomial in N that's an upper bound an N factorial.  N to the third or fourth or fifth N is bigger than any
+09:46:21 (INDISCERNIBLE).  The brute force sorting algorithm the run time can't be upper bounded by any polynomial in the size of the list.
+09:46:38 It's not a polynomial times algorithm.  N factorial, an algorithm that takes N factorial types is not a polynomial algorithm.  Something that
+09:46:49 took N squared or cubed steps is polynomial.  N to the N to the N anything like that would not be a polynomial time algorithm.
+09:47:02 This may seem a bit of a strange definition because if you had an algorithm that ran in time N to the one million that would still be
+09:47:12 polynomial time according to this definition, but probably completely use less in practice because even if N was very small N to the million
+09:47:30 would be huge.  The run time would be large.  The reason we use this definition is in practice if there is a polynomial time algorithm which
+09:47:55 sometimes I short en to poly time algorithm for a problem there's usually one with a small exponent.  Not like N to the million but N
+09:48:06 to the two or three.  There's exceptions.  Another way that this could go wrong is even if the exponent is small maybe the multiplying factor
+09:48:26 in front is huge.  One with a small exponent and a coefficient.  I will say but there are exceptions.  Some algorithms the best known algorithm
+09:48:47 really is something like N to the hundred, or something like two to the fifty times N squared.  This is a polynomial time algorithm.
+09:49:00 It grows like N squared but there's a coefficient in front that's large.  The number of steps is not reasonable in practice.  Question.  Let me
+09:49:14 reiterate polynomial time.  It's the worst case run time of the algorithm.  That function on the input of size N what is the maximum number of
+09:49:28 steps algorithm can run.  If the function can be (INDISCERNIBLE) by a polynomial then we say the algorithm runs in polynomial time.
+09:49:40 The convex hull algorithm took something like C N squared steps.  There is a polynomial that upper bounds that for example C N squared.
+09:49:53 Where as the brute force sorting algorithm could take N factorial steps.  There's no polynomial that upper bounds the function N squared.
+09:50:06 Sorry, N factorial because it grows faster than any polynomial.  This algorithm is not a polynomial algorithm.  You can call this is a
+09:50:21 factorial time algorithm.  The amount of time this uses in the worse case exceeds any polynomial in the size of the input.  Other examples here
+09:50:39 notice maybe to explain what we mean by bounded above.  Let me look at another example.  If we had a function like F of N that was
+09:50:59 two N squared plus three N plus log N here's a function.  This is not a polynomial itself.  It's got this log N in it, but it is bounded above by
+09:51:11 some polynomial.  For example, this is we can say something that's -- a polynomial that's bigger than this is something like I don't know
+09:51:31 we could say five N squared.  I have to double check the even for N equals one.  Maybe I need six.  Six N squared.  A polynomial like this
+09:51:41 we could prove is always bigger than this one for N equals one, two, three, four.  This is upper bounded by a polynomial even though
+09:51:57 it's not a polynomial itself.  If you have an algorithm that ran in this time it's a polynomial time algorithm.  This is bounded above by a
+09:52:10 polynomial.  All that means, bounded above by a polynomial is there's some polynomial that's bigger than it for all N.  Actually five may
+09:52:22 work here.  I want to be careful.  I have to go through and check.  If N equals one, if we only allow natural numbers and N equals one
+09:52:34 and the log of N is zero so five should work.  Some constant would work.  If we have another function like F of N was two to the N
+09:52:59 this is not bounded above by any polynomial.  Because if you think of any polynomial, pick six N squared there's some N where two to
+09:53:09 the N is bigger than the polynomial.  If you pick N to the million eventually if N is big enough two to the N will be larger than
+09:53:21 N to the million because two to the N grows faster.  You can compute what the N would be at which time two to the N starts to be larger.
+09:53:37 Some are bounded above by polynomials and some are not.  That's the distinction.  If the worse case run time is bounded by the algorithm
+09:53:51 it's polynomial time and that's what we mean by efficient.  A question, what if it's three to the N?  Three to the N is not bounded above my
+09:54:06 any polynomial.  Question about dropping (INAUDIBLE).
+09:54:18 When we talk about asymptotic notation which we will do it's bounded above by a polynomial or not.  This is an example of a function that's
+09:54:29 bounded above and this is not bounded above.  We use this definition there's a couple of reasons, one of the main ones is it simplifies
+09:54:37 the definition of what it means to be efficient because we don't have to worry about exactly how long the algorithm takes.  We only care
+09:54:46 about the asymptotic growth rate.  Is it a polynomial or exponential or worse?  There's other theoretical benefits that we will talk about
+09:55:08 in one zero three when we do complexity theory.  A critical thing and properties that polynomial time has that's nice is, one of the important
+09:55:30 properties it has is that poly time algorithms are closed under composition.  What I mean by that is if you have some algorithm
+09:55:43 that calls another polynomial time algorithm polynomially many times then the overall algorithm is polynomial time.  If you call
+09:55:57 a poly time algorithm as a sub routine so imagine in your pseudo code you call out some other algorithm to help you if you call a poly time
+09:56:24 algorithm as a sub routine at polynomially many times then the over all time of your algorithm is still polynomial.  An example of that would be
+09:56:39 in the sorting example we had before.  You had that linear time check for whether an array is in increasing order.  If you call that polynomially
+09:56:50 many times it's still polynomial.  An example is if you have something that runs in, maybe you have some check that runs in N squared time
+09:57:09 and you call that a polynomial number of times like two N to the fifth so the steps is two times N to the seventh which is polynomial.
+09:57:22 If you invoke some polynomial time operation a polynomial number of times the total work is polynomial.  That's convenient.
+09:57:31 This is going to be the definition we are going to use of an efficient algorithm as I said before there are exceptions.  There are problems
+09:57:42 where there is a polynomial time algorithm but it's not useful because the exponent is too large and the coefficients are too large.
+09:57:57 I will put examples on canvas.  These are sometimes called galact I c algorithms.  They are uncommon.  We will not worry about that
+09:58:09 in this class.  Now that we have this definition you can use this do actually prove that some problems don't have efficient algorithms
+09:58:19 in the sense of not having polynomial time algorithms.  We will not do that here but in one zero three if you have not taken that already.
+09:58:30 Now that we have this precise definition of what it means to be efficient we can say do we have an efficient algorithm for a problem or not?
+09:58:45 One thing that's annoying about the definition is if we have a definition like this we call it polynomial time.  Keeping track of the details
+09:58:57 is annoying especially when it depends on the details of the hardware.  We will use a notation to suppress the unnecessary parts of this
+09:59:06 while keeping track of the fact that this algorithm runs in N squared time but ignoring the lower order terms that are not as relevant
+09:59:17 as N gets large.  That's called asymptotic notation.  That's what we will talk about next.
+09:59:47 The idea here is that this is notation to express how quickly a function grows for large N.  We are not going to worry about the exact
+09:59:56 value of the function.  We want to distinguish between polynomial time and exponential time.  Things like that.  This notation will help us
+10:00:08 do that.  Some of you may have seen this in one zero one.  I will give you the basic definitions here and we will look at examples.
+10:00:42 The most basic notation is called the big O notation.  What we say is we write a function F of N is O of G of N.  What the notation looks like
+10:00:54 is we say one function equals capital O.  That's why it's called big O of some other function of the same variable N if and only if
+10:01:13 for sufficiently large N, F of N is bounded above by some multiple of G of N.  I will write that.  If for all sufficiently large N and so the way
+10:01:35 we say that is for all N greater than some threshold N zero.  So, I should say if there is some N zero such that for all N beyond that point
+10:02:11 so for all sufficiently large N, F of N is at most C, some constant, times G of N.  Where C is a constant.  C could be one.  It could be one
+10:02:25 and-a-half, two, three.  Any constant number like that.  The picture is like this.  Here we have some graph.  I'm going to plot here our two
+10:02:36 functions F and G.  Suppose F measures the run time of an algorithm and it's a complicated function of N.  Maybe it looks something like this.
+10:02:53 Some complicated function.  This is F of N.  We don't care about all the aspects of this function.  The big O will say what is an asymptotic
+10:03:17 upper bound for this function.  If F of N was O of G of N what that means is there's some multiple of G of N so that it's ultimately
+10:03:32 an upper bound.  We take G of N and multiply by some constant C.  It may not be upper bound for F initially but if you go far enough out
+10:03:43 there's some N zero.  This is our N zero.  Actually there's another intersection there.  I missed that.  Sorry.  Here would be the least
+10:04:03 N zero we could pick.  So beyond this point C times G is an upper bound for F of N.  The in tuition is that F is asymptoticly
+10:04:40 bounded above by some multiple of G.  An example of this, if you had a function like five N this is O of N.  Why is that?  Is there some
+10:04:52 multiple of N which is an upper bound for five N for all sufficiently large N?  Yes.  Just five times N would work.  But also something like
+10:05:11 five N plus log N.  This would also be O of N.  Why?  Well, log of N grows more slowly than N.  If you think of the plot for N
+10:05:25 , N is a line at forty five degrees.  Where as log N is more like this.  It levels off over time.  If you take N large enough this would be bounded
+10:05:53 by six N.  We could say since five N plus log N is less than six N for large enough N.  Sorry.  This is a plus sign.  Okay.  If we went out far enough
+10:06:02 on the graph then five N plus log N would be bounded by some multiple of N.  In this case even six N would work.  This function
+10:06:09 would also be O of N.  Questions on this?
+10:06:41 I will look at another example.  More examples.  Suppose we have something like N to the fifth plus three N squared.  This would not
+10:07:00 be O of N to the fourth.  Why is that?  Well, because no matter what constant you put in front of this in the fifth will eventually get
+10:07:24 larger than N to the fourth.  Since for any constant C N to the fifth is eventually is larger than C times N to the fourth.  What our definition
+10:07:37 says is you need to have some C so that at least for sufficiently large N, F is bounded above by that multiple of G.  No matter what
+10:07:46 multiple we pick here there's going to be some point at which N to the fifth exceeds C times N to the fourth because N to the fifth grows
+10:07:58 faster than N to the fourth does.  This function would not be O of N to the fourth but it would be O of N to the fifth.  It would also be
+10:08:14 O of N to the sixth or of N to any exponent that's five or larger.  Question about is there any limit on how large N zero can be.
+10:08:30 There's some value of N beyond which this is an upper bound of the function.  Is the idea of upper bond is useful if N is big?  This is a
+10:08:42 limitation of the asymptotic (INDISCERNIBLE) because it kicks in for large inputs.  If it's so huge this is not meaning full.  In practice this is
+10:08:54 helpful.  If you know an algorithm is O of N squared that tends to tell you it's more efficient than N cubed algorithm in most cases.
+10:09:15 You are right this is only talking about asymptotic bounds sometimes you can get examples where it's asymptoticly efficient.
+10:09:29 (INDISCERNIBLE).  I mentioned this.  And N to the fifth is also O of N to the fifth.  The key take away is O is only giving an upper bound.
+10:09:52 Just because something is O of some function doesn't mean that's the tightest upper bound.  O of G gives an upper bound but not necessarily
+10:10:17 the tightest bound.  If we have N to the fifth it's O of N to the fifth and also to the sixth and two to the N and things that grow faster.
+10:10:29 Usually when we compute the run times we want as tight a bound as possible.  We need to give lower bounds.  We have a notation
+10:10:51 for that as well.  Let's move to that.  For giving lower bounds we have another notation that's called big omega.  We say F of N
+10:11:11 is capital omega of G of N.  This is the Greek letter omega here.  Again, it's similar to what we had for big O notation but now it's for
+10:11:40 a lower bound.  Let me write it.  If there exists some constant C, I think we will put it as greater than zero, and some threshold which is
+10:11:58 another constant N zero, such that for all N, starting from N zero.  For all sufficiently large N now we have a lower bound.  F of N is
+10:12:21 at least C times G of N.  Let's look at the picture for this.  We have our weird function F of N.  Now we are saying that G of N, some multiple
+10:12:43 of G of N gives a lower bound.  Something like this.  Again, this is allowing us to ignore all of the potentially wig ly behavior of F
+10:13:07 while giving a lower bound.  We could say that five N, that is omega of N.  Also something like five N plus two this would also be omega
+10:13:24 of N.  Even things like N squared would be omega of N.  We know N squared is not O of N but omega of N because we are talking about a
+10:13:45 lower bound.  Question.  In my graph here we could take N zero to be zero.  We could have another one like, let me draw another line.
+10:13:56 If it was like this.  If we had one like that then you say it's not a lower bound here but other only requiring it to be a lower bound for
+10:14:07 sufficiently large N.  Here we could take this point to be N zero.  If we had this upper line instead of this lower one.  I should have drawn it
+10:14:23 that way.  Question.  Can these functions F an G be negative?  Good question.  People define it different ways.  Since we are talking
+10:14:30 talking about run times we are basically always going to assume they are nonnegative.  You are right.  If F was negative we have to be
+10:14:45 careful about what the constant is.  We will assume all the functions we are talking about are nonnegative.  At least for positive inputs here.
+10:15:01 Why this notation is useful is it let's us suppress terms we don't care about.  For example, if we are trying to measure the run time of an
+10:15:09 algorithm and it takes five N plus two steps we don't care about the plus two and five because those may be different on different hardware.
+10:15:19 We will say this is a linear time algorithm it's O of N and omega of N.  It's both upper and lower bounded by some multiple of N.
+10:15:28 That's what I will talk about next.  We have a third notation which combines upper and lower bound.  That's useful in practice because
+10:15:40 it means when analyzing the run time of an algorithm you don't have to keep track of how many steps the algorithm is taking.  You can reason
+10:15:58 about is this constant versus linear versus logarhithmic time.  Things like that.  Let's wrap up our suite of notations here with the last one
+10:16:15 that combines the upper and lower bounds.  This is called big theta.  It uses the capital letter theta from the Greek alphabet.  F of N is
+10:16:28 theta, capital theta.  You may have seen the lower case theta that looks like this.  We often use that for angels.  Capital theta looks different.
+10:16:42 It's an O with the small line in the middle.  I will put examples online of how it's rendered.  This is a theta not an O.  We say F of N is theta
+10:17:05 of G of N if F of N is O of G of N and F of N is omega of G of N.  This means you have both the upper and lower bound.
+10:17:17 This is what you usually want to actually use because this tells you precisely what the asymptotic growth rate of F is.  We have our
+10:17:41 weird function F.  Let's draw it like this.  This is F of N.  Now we have some -- we have G of N and multiples of it that upper and lower
+10:18:02 bound is for N.  It could be something like this is C one times G of N.  Then we have other constant C two times G of N that provides
+10:18:15 an upper bound.  What this means is for sufficiently large N, F is between two multiples of G.  It could be this is five times
+10:18:38 G and this is eight times G.  Something like that.  This gives you both an upper and a lower bound.  If F of N was theta of N for example,
+10:18:51 what that means is that F of N is upper and lower bounded by some multiple of N for sufficiently large N.  Then we can say it's linear
+10:19:09 time.  If you have an algorithm that runs in this time we can say it's linear time.  In the worst case it's O of N so it could take five N
+10:19:23 steps but it actually does in some cases take linear time.  It's not like it could take less than linear time.  If we had something like log N
+10:19:42 for example that's O of N but it's not theta of N.  This is upper bounded by some multiple of N, but it's not theta of N because there's not
+10:19:53 a lower bound.  Log N grows more slowly than N does.  There's no multiple we can give that's always a lower bound of sufficiently large
+10:20:06 N of this (INDISCERNIBLE).  This theta tells you asymptoticly this is a tight bound on F.  Both above and be low.  There's some constant
+10:20:19 multiple of this function which is an upper bound and there's another constant that is a lower bound.  This means you determined the
+10:20:37 asymptotic growth rate while dropping lower order terms.  If we had five N squared plus three N this will be theta of N squared.
+10:20:49 Why is that?  Because if you take N large enough this three N doesn't matter.  You could take some larger multiple of N squared and
+10:21:00 that will bound this term.  Bound the sum of these two terms.  Conversely, if you look at the lower bound for some multiple
+10:21:10 of N squared that will be a lower bound for this term for sufficiently large N.  This let's us say the growth rate of this function is N
+10:21:22 squared.  We don't have to worry about keeping the lower order term of three N around anymore.  You can think of the big O notation
+10:21:32 as giving an upper bound.  Like a greater than symbol but it's not literally greater than because you can have this multiplication
+10:21:43 factor.  Omega gives a lower bound and theta is giving almost an equality.  It's not saying this equals N squared.  It doesn't.
+10:22:01 It is up to a multiplication factor this is equal if N is large enough.  To summarize that the big O gives you an upper bound.
+10:22:24 The big omega gives a lower bound and the big theta gives both and again for both of these, these are all up to a multiplication constant.
+10:22:42 And for large enough N.  It's not saying that if you have an O of N it's not saying it's always less than N then we could write that.
+10:22:53 It's saying it's less than some multiple of N for large enough N.  When we are trying to analyze the run time of an algorithm what we will
+10:23:05 try to do is compute some simple function that the run time is theta of.  We want to say is it N squared algorithm?  Meaning the run time
+10:23:25 is theta of N squared or is it theta of N log N algorithm?  Question, are there algorithms that can't be expressed in big omega?
+10:23:36 No you can put any function here.  You can take any function you have F of N and put it in theta and that function would be itself.
+10:23:47 Any function F of N is theta of F of N.  Itself.  The nice thing about the theta is some difficult functions can be theta of a simple function
+10:24:01 which lets us drop lower order terms and make things simple.  Instead of keeping sum of two terms around it's theta and we drop these
+10:24:21 terms and it's N squared.  I want to do a little quiz poll thing on this to give you a little practice.  Sorry.  Up to multiplication constants.
+10:24:34 We are basically out of time.  I think what I will do is not do the poll just now because we will not have time to discuss the answer.
+10:24:49 We will start off on Monday giving you a little quiz, ungraded, so you have practice with this asymptotic notation.  I will post some
+10:25:01 practice problems or the first part of the home work that's due a week from Tuesday to practice with this as well.  We will talk about on
+10:25:15 Monday is how we do this kind of analysis for recursive algorithms.  How will we compute the asymptotic growth rates like this four
+10:25:25 run times of recursive algorithms.  That will bring us to how we use recurrence equations.  Like we saw on the first lecture for the
+10:25:33 divide and conquer convex hull algorithm where we wrote the run time of the algorithm in terms of itself on smaller problems.  That's
+10:25:46 what we will start talking about next week.  All right I will hang around for a a little while if you have questions other wise have a
+10:25:48 good weekend and see you Monday.

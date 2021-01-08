@@ -8,15 +8,22 @@ Welcome to cse102-notes's documentation!
 
 Transcripts
 -----------
+Click to download.
+
+Week 1
+^^^^^^
 :download:`1/4/2020: Introduction <_static/lec1.txt>`
 
 :download:`1/6/2020: Algorithms/RAM Model <_static/lec2.txt>`
 
+:download:`1/8/2020: Asymptotic Notation <_static/lec3.txt>`
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
    intro
+   algorithms
 
 
 
