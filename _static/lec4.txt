@@ -1,0 +1,313 @@
+09:24:22 >>Professor:  if that is an upper bound at least for all sufficiently large N then we say that this function F of N is O of G of N.
+09:24:35 An example of that would be if the function was log of N then that is big O of N.  Because for all sufficiently large N log of N is less than
+09:24:49 some multiple of N.  In the other direction if we want to give a lower bound we have the omega notation.  That's shown by the lower
+09:25:04 curve.  The lower curve shows F is omega of G of N because for sufficiently large N from this point onward some constant times
+09:25:19 G of N is a lower bound for F of N.  For example, if F of F was log N it would also be omega of log N, but it could be omega of
+09:25:31 one because for sufficiently large N log N is greater than one.  One would also be an asymptotic lower bound for the log rhythm
+09:25:44 function.  Finally, we had big theta which is a combination of both of these.  You have asymptotic upper and lower bounds.
+09:25:56 In the graph, F of N is theta of G of N because there's two multiplication constants C one an C two.  For sufficiently large N if we go
+09:26:03 far to the right F of N is between this multiple of G and this multiple of G.
+09:26:17 If you look at large N, this function is bounded both above and be low by multiples of this function G.  Again, in the case of the log
+09:26:31 function we just said it's O of N but it's not theta of N because it's not bounded be low by some multiple of N.  If you get large enough then
+09:26:42 no matter what small multiplier you put in front of N it will eventually exceed log of N.  Log of N is not omega of N.
+09:26:58 So it's not theta of N either.  An example like this, five N square plus three N, if you look at sufficiently large N this is bounded above and
+09:27:08 be low (INDISCERNIBLE).  It's always above five N squared.  That means this function is theta of N squared.
+09:27:24 A question here.  Does every point of F of N have to be be low, above or in between to satisfy one of these three conditions?
+09:27:36 It's not every point.  It's only all points beyond a certain point.  It could be you have exceptions like in the graph here C one times Go-
+09:27:51 of N is not a lower bound for F.  That's okay once you get beyond some initial part.  From some part onward it's lower bound.
+09:28:03 Similarly for big O from some point onward it's upper bound.  The reason for that is we don't care what happens for small N.
+09:28:11 There could be some exception.  We are only interested this what happens asymptoticly.  If you look at the limit as the input to the
+09:28:19 algorithm gets large how does the run time of the algorithm grow?  This is important because there's some algorithms that have a lot
+09:28:30 of initials early on.  Maybe you have to build a big table or something.  If that part of the algorithm doesn't grow in run time as the input
+09:28:43 does we don't want to count that.  It's basically a one time initial.  As the data increases how does the run time increase?  That tells you if
+09:28:53 you are a company running one of these algorithms and now you have -- you expect the user base to double in the next year how much
+09:29:02 more computation power do you need to buy?  If it's a linear time function maybe you can double the amount of computers you have
+09:29:13 or the cloud computing resources you are using some cloud service.  If you have an exponential time algorithm then you are in trouble.
+09:29:26 That means even if you added a single user that doubles the computation power you need.  You probably won't be able to scale.
+09:29:37 That's the distinction the asymptotic function gives.  We look at the simple way of writing down the growth rate.  This is a quadratic
+09:29:50 algorithm.  If we double N the computation we need to do multiplies by four.  It's a lot but it's something we can deal with as compared
+09:30:01 to this being N cubed or N to the fourth.  To check how we are doing and understanding this notation I have a quick little poll for you.
+09:30:16 I'm going to pull it up now.  Hopefully, you can see this.  We are considering the function log based ten of N and I have written down
+09:30:29 a bunch of these notations.  Theta and O and omega.  I ask which of these apply to the function log base ten of N.  You can pick more
+09:30:34 than one.  Think about it for a minute or two and then we will talk about it.
+09:32:15 Okay.  Most of you have replied.  Thank you for that.  Let's go over the answers here.
+09:32:21 I will share the results.
+09:32:33 All right.  Hopefully, you can see this.  Ignore the red line there.  That is showing that was the most popular answer.  Since this is multiple
+09:32:42 choice it's not meaning full.  Let's go through them.  The function we are thinking about is log based ten of N.  These were the five notations
+09:32:53 we are wondering whether they apply or not for this function.  One way of thinking about this is that these are defining sets of functions.
+09:33:07 This notation means all functions that asymptoticly are growing at the rate of N versus this is all functions which grow at a rate of N square
+09:33:26 or less because they are bounded by a multiple of N square.  First off here we had theta of log base two of N.  Class was evenly split
+09:33:38 on this.  In fact, this does work.  Log base ten of N is big theta of log base two of N.  Let's see why that's the case.  The reason for that is
+09:33:50 this function log based ten of N you may recall there is a relationship, an equation you can use to convert between logs of different bases.
+09:34:05 We can use that formula to write this in terms of log based two as follows:  This equals log base two of N divided by log base two
+09:34:18 of ten.  This is the change of base formula for log rhythms.  Now, once we have done that, notice this function is just the same as
+09:34:38 log based two of N divided by this constant.  The denominater is some number.  Log base of ten is some constant.  This equals some
+09:34:55 constant C times log based two of N for some constant C.  That means that this function is going to be theta of log based two of N
+09:35:07 because in fact not only is it upper and lower bound by some constant multiple of log based two of N it's equal to some constant log base
+09:35:11 two of N.  Questions about this one?
+09:35:29 Let's move to the next one.  Theta of N.  Most of you said no and you are right.  Log based ten of N is not theta of N.  How can we tell?
+09:35:41 Well, what do we need to check for this to be theta of N?  It needs to be asymptoticly upper and lower bounded by some multiple of N.
+09:35:55 Here the lower bound will not work.  N grows more quickly than log base ten of N.  For this to be lower bounded we need to show that
+09:36:10 log base ten of N is greater than or equal to C times N for some C.  Constant C greater than zero.
+09:36:25 For sufficiently large N.  This is not going to work.  No matter what value of C you plug in here, if you go to large enough N
+09:36:40 this inequality will be violate the.  If you think of the graph it tapers off as N gets bigger where as this has a constant slope of C.
+09:36:52 You can solve what N you need and which point this inequality would fail.  This doesn't work.  This is impossible.
+09:37:09 No matter what choice of C you pick you are not able to satisfy this inequality for all sufficiently large N.  There for, log based ten of
+09:37:28 N is not omega of N.  It can't be theta of N either.  Next up we have big O of N squared.  Most of you said yes and you are right.
+09:37:41 Why is that?  Well, what we need to show is log based ten of N is bounded above because it's big O, by some multiple of N square
+09:37:53 for sufficiently large N.  That works.  The constant could be one.  If you take N large enough N squared is bigger than log based ten of N.
+09:38:06 If you think of graphing these the log rhythm is tapering off.  Where as N squared is a parabola.  It's accelerating as it increases.  That works.
+09:38:20 Next let's go to omega.  Here people were fairly split again.  This one works.  Which may seem surprising because this is a constant.
+09:38:31 The thing to remember is omega talks about a lower bound.  What do we need?  We need log based ten of N to be greater than or equal
+09:38:40 to some constant times one for some constant C greater than zero for sufficiently large N.  This works.
+09:38:55 Again, we could pick the constant to be one.  If you pick N greater than ten then from that point on the log rhythm based ten is
+09:39:07 at least one.  This will be lower bounded asymptoticly by the constant one function.  There for, log based ten of N is omega of one.
+09:39:21 It would not be theta of one or big O of one because it's not bounded above by some constant but bounded be low.  Any function that
+09:39:38 doesn't go to zero would be omega of one.  Finally, we have theta of two times log ten of N.  This one, again, people were split.
+09:39:48 Let's go through this in detail.  This does work.  What do we need to show?  We need to show both directions.  We need to show this is
+09:40:01 O of that and this is omega of that.  For the first one, to show that log based ten of N is O of two times logged base ten of N
+09:40:14 what do we need to show?  We need to show that log based ten of N is at most, big O gives upper bound, some constant times this function
+09:40:25 which is two logged base ten of N for sufficiently large N.  For large N.  And in deed, that is the case.
+09:40:38 We can take C to be one, again, and this would hold for all N not just sufficiently large N.  That part is fine.
+09:40:50 For the other direction we need to show log based ten of N is omega of two based ten of N.  How do we show that?
+09:41:02 We need log base ten of N is at least because omega gives a lower bound, some constant C which is this function.
+09:41:17 Again, for large N.  What can we do?  Just set C to be one half.  Then this inequality would hold for all N.  Not just large N.
+09:41:28 That would show both the upper and lower bound.  Log based ten of N is theta of two times log based ten of N.
+09:41:44 The bigger take away from this is that multiple constants out in front don't affect the asymptotic notation or growth rate.  Which is why
+09:41:59 we let in the definition of O and theta and omega the constant C.  When we are given the growth rate we can drop the multiplying
+09:42:12 (INDISCERNIBLE) log based ten of N.  Question here.  Is everything theta of itself?  Yes that's right.  You can take the constant to be one.
+09:42:25 If you have a difficult function it's theta of itself, but we can also use the theta to simplify things.  An example we had before was if
+09:42:36 we had something like theta of five N squared plus three log N.  Something like this.
+09:42:49 This is theta of -- this function here is theta of itself, but we can simplify this.  Anything that's theta of this would also be theta of
+09:43:06 just five N squared.  Why is that?  Well, if we think of the lower bound that's clear because this function is always greater than this
+09:43:17 because we drop this positive term here.  Clearly, this function up here with the two terms is omega of just five N squared.
+09:43:28 It's also big O.  Why?  Because if we take N large enough then this second term here is going to be totally dominated by
+09:43:40 this first term.  Some multiple of N squared will always be bigger than three times log N.  This would also be big O of five N squared
+09:43:50 because you could just take some multiple of this like ten N squared and that would dominate both of these.  We would be able to drop
+09:43:58 this second term because it grows more slowly than the most important term here.  Now as it's pointed out in the chat we can further
+09:44:10 simplify this to say this is just theta of N squared.  That's the observation we have here.  A multiplication constant in front doesn't
+09:44:22 change the theta of growth.  We are allowed to (INDISCERNIBLE) in both big O and omega.  This gives an idea of how to use the theta
+09:44:33 notation to concisely talk about what the asymptotic run times of algorithms are without dealing with the complexities of what the
+09:44:44 function is.  We can drop these less important terms and drop multiplication factors and end up with something that gives the over
+09:44:51 over all growth rate of the function.  Additional questions on this?
+09:45:10 Okay.  Let's move on.  Now that we have talked about this asymptotic notation I want to give you a few examples of this before we
+09:45:22 then talk about recurrences.  A few special cases of asymptotic notation that have names that we may refer to through the course.
+09:45:40 Some particular growth rates you will often see are, for example, constant time.
+09:45:55 Or theta of one.  This we talked about before in the context of the primitive operations for the RAM machine.  The operations which
+09:46:06 you can assume can be done in constant time like multiplying two integers for example.  Two sixty four bit integers.
+09:46:14 Operations like that are theta of one.  They take a constant amount of time.  If they take five or twenty four steps that would be theta
+09:46:22 of one.  Because it's bounded above and be low by some constant multiple of one which means it has to be a constant.  It's not
+09:46:32 allowed to grow with N.  This means not growing with N at all.  It's a constant amount of time.
+09:46:55 This comes up for example in some operations on data structures.  For example, looking up an element at a given index in an array.
+09:47:03 This is one of the things we can easily implement on a RAM machine because we have random access memory.
+09:47:12 If you have an array and you want to look up element thirty seven that's a constant time operation.  This will be important for algorithms
+09:47:24 that work an arrays.  This is constant time instead of taking time that depends on the size of the array.  Another common run time
+09:47:37 or growth rate is log rhythmic time.  That's theta of log N.
+09:47:50 An example of this would be binary search.  I think you have seen in one zero one.  If you have an assorted array and you are trying to look for
+09:48:01 a particular element that takes log rhythmic time in the length of the array.  We will see more examples of this when we talk about graph
+09:48:14 algorithms we will talk about priority Q's.  That's another data structure where you get log rhythmic time of various kinds.
+09:48:22 One note here is that the base doesn't matter.
+09:48:33 I have not written here do I mean log based two or ten, et cetera.  If I'm not -- if the exact value is not important I will not write it.
+09:48:47 Because as we just pointed out all the log rhythms are equivalent to each other up to some multiplication factor.  You write big O
+09:48:59 it doesn't matter the base.  If you put two it's (INDISCERNIBLE).  I will try to be precise by putting the base in when it matters.
+09:49:03 Inside asymptotic notations like this the base does not matter.
+09:49:14 Another one we saw before is linear time.  This is theta of N.
+09:49:25 This is a very common run time for operations on data structures.  For instance, if we have an array like we have here, but now you want
+09:49:33 to find the largest element in the array that was an example we saw before.  That takes linear time in the worse case.
+09:49:48 Finding the largest element in an unassorted array.  That could take linear time in the worse case.
+09:49:53 Because you may have to look through the entire array to find this element.
+09:50:03 This is usually our ideal for what we want for our algorithms because this is the most scale able.
+09:50:11 It means if you have twice the data you only need twice the time roughly.  Of course, there's sometimes algorithms that can do better
+09:50:21 better than this but that requires you to not even look at the entire input.  That can be harder.  I can put some links on canvas if
+09:50:31 you are interested in the sublinear time algorithms.  Usually, run times that are lower than linear are not for entire problems but
+09:50:46 operations on data structures.  Were your not solving the entire problem but doing aux.  We have quadratic time.
+09:50:50 Fairly common as well.  This would be N squared.
+09:51:04 This is not as good as linear but it's a low degree polynomial and algorithms like this can be useful in some cases.
+09:51:13 Where you get in to times that are probably not useful in practice are with things like very high degree polynomials or worse than that
+09:51:27 exponential time.  For example, this could be things like two to the N.  Also it could be things like even something like one point five
+09:51:39 to the N would be considered exponential time.  Orders like this, they are growing exponentially with the size of the input so
+09:51:50 it's unlikely this algorithm would be able to be used for even small amounts of data.  There's exceptions but usually an algorithm
+09:52:00 that runs in exponential time means it's not useful in practice.  These run times typically come up with a brute force algorithms.
+09:52:13 Sometimes there are brute force algorithms that are faster than this.  Often you have problems where on an input of size N you have
+09:52:20 exponentially many possible solutions.  If you have to check them you get a run time like this.
+09:52:25 Question here, why is one point five to the N also exponential?
+09:52:36 If you think about it, this is still growing exponentially in the sense that if you add one to the size of the input, like you go from N
+09:52:44 equals ten to eleven.  Here you double the run time.  Here you are not doubling it but still multiplying it by some constant factor.
+09:52:57 If you graph this it's still blowing up exponentially in terms of a constant amount of data growth means a increase in the run [TAOEUPLT].
+09:53:07 Time.  If you increase by one you get one point five.  If you increase by two it's one point five by one point five.  It's increasing
+09:53:22 by a multiplier rate.  That's exponential.  It grows faster than any polynomial of N.  Even N to the five hundred.  Large enough
+09:53:33 N will reach that and exceed it for large enough N.  A question, it would be impossible to end up with an algorithm with a run time of
+09:53:44 point five to the N, right?  Yes that goes to zero.  It's decreasing as N increased.  Exponential time in general is anything of the form
+09:53:52 theta of C to the N with C strictly greater than one.
+09:54:03 If you have C less than one this would decrease in N.  You would not have an algorithm.  That's equivalent to constant time.
+09:54:12 Anything where you have some constant greater than one to the N that would be considered an exponential time algorithm.
+09:54:28 Question, what about a factorial algorithm?  That's worse because it grows more quickly than the exponentials.
+09:54:39 This is not an exhausted list.  We saw N times N that's a between linear and quadratic time.  I'm mentioning some with names so you
+09:54:45 recognize the terms because they come up.  There are different asymptotic growth rates that could be defined by
+09:54:52 lots of different functions inside the theta.  These are five you see often.
+09:55:05 Let's move on from this.  If you have more questions on other types of functions, growth rates, ask on piazza.  I want us to get to
+09:55:17 recurrences.  One issue that comes up here that we touched on before but didn't talk about in detail is how do you analyze the run time
+09:55:24 of an algorithm with a recursive call?
+09:55:29 Let me write this down again.
+09:55:48 If you remember, the divide and conquer algorithm that we discussed for the convex hull algorithm if we try to figure out how long
+09:56:00 that takes we run in to the issue that it's a recursive algorithm.  When you are analyzing the run time of a recursive algorithm
+09:56:12 you can write the total run time in terms of the run times of the recursive calls.
+09:56:22 That will yield what's called a recurrence or a recurrence equation.
+09:56:39 We can write the total run time in terms of the run times of the recursive calls.
+09:56:51 Let's look at an example.  We had the divide and conquer convex hull algorithm.
+09:57:08 It had three main steps.  The first step was we split the points.  We are given this set of points.
+09:57:22 We split them in to left and right halves.  We take the big set of points in the plain and draw some line in the middle to cut them in half.
+09:57:28 Now we have the points on the left of that line and the right.
+09:57:39 Then we recursively find the convex hulls of each half.
+09:57:53 We run this algorithm recursively on just the points on the left set and then on the right set.  Then we get the hulls for the left and
+09:58:01 right side.  Then finally we merge the two hulls we get for the two sides in to a single one.
+09:58:19 The way we did that was by adding the tangents between the two convex hulls.  We didn't go to the details of how you find those
+09:58:26 tangents.  I mentioned at the time to take on faith that you can do this in O of N time.
+09:58:39 I put a link on piazza before if you would like the details of how to do that.  This first step, this can be done in O of N time.
+09:58:53 All we have to do is go through the left and right -- sorry we go through all the points and we can find a point that's halfway between.
+09:59:03 You can find the median value for the X coordinates and I will split the points in to the left and right halves.  That's fine.
+09:59:12 How do we talk about the run time of step two?  Because this depends on running the algorithm itself which we don't know how long it takes
+09:59:21 an smaller problems.  We can write this in terms of an unknown function for how long the algorithm takes to run.  Before
+09:59:30 I use the notation T of N to mean the amount of time the algorithm takes to run on N points.  If we run this on half as many points
+09:59:46 that would be like T of N over two but now we have to do this for each half.  This is two times T of N over two.  In total,
+09:59:59 what we have is the amount of time to run the algorithm on the original N points.  Has these three terms.  We have O of N term.
+10:00:08 Then we have this recursive term which says we have two sub problems of size N over two each.
+10:00:20 Then finally we have O of N for step three.  We can simplify this a bit here.  There's no need to have two of these O of N terms because
+10:00:39 we can put a constant factor.  If this is C times N and D times N that's equivalent to C times D times N.  This is two times T of N over two
+10:00:49 plus O over N.  The time needed to run the algorithm on N points is equal to twice the time needed to run it on N over two points
+10:00:58 plus some other term that shows how much work we have to do in steps one and three which is O of N.
+10:01:03 Does everyone see how we got this equation?
+10:01:17 This is a recurrence equation because it defines T of N in terms of itself on smaller values.
+10:01:31 This is a recurrence equation, or simply a recurrence.
+10:01:39 Question.  Where is this O of N coming from?
+10:01:47 What we are doing is adding up the time taken.  The number of steps we need to execute for each of the three parts of the algorithm.
+10:01:55 For this first part we have O of N steps required to split the point to the left and right halves.
+10:02:05 In the second part of the algorithm we have this many steps.  Two recursive points on N over two points.  Let's assume we have
+10:02:13 an even number of points to do that.  The two is here because we have to finds the convex hulls of each half.
+10:02:23 We have the two sets of point the left half and right half.  We are calling ourself on each of those.  For the left half it's T of N over two.
+10:02:36 For the right it's T of N over two so it's two times T of N over two.  We add the tangents to make them one polygon which took
+10:02:56 O of N time.  That gave us three these terms we have here.  Now we can simplify that.  O of N is some function bounded above by a constant
+10:03:09 times N.  This is a constant times N and some other constant times N.  The sum is the third constant times N.  Let me write that.
+10:03:23 If we have O of N plus O of N.  I will give a link on piazza to a section of the book where it talks about the arithmetic properties of the big
+10:03:35 O notation.  It's helpful to look at.  If we have this, this means this is at most some constant times N plus some other constant times N.
+10:03:48 That's the definition of the big O notation for sufficiently large N.  This is just O of N.  Why?  Because you can combine those two constants
+10:03:58 C and D.  I should write that here.  This is equal to C plus D times N.  That's something constant times N.  It's O of N.
+10:04:12 We had two O of N's here.  We have one from separating the points in to two sets the left and right halves and second O of N from
+10:04:25 doing the tangent procedure.  In total that's just O of N.  We have this equation with a recursive term here encoding all the work being done
+10:04:35 in the recursive call and this term is doing all the work not done in the recursive call.
+10:04:48 This is what we call a recurrence equation.  One thing to check here, someone mentioned could we have done theta instead of O of N.
+10:04:58 You are right.  I was being loose here but in fact these have lower bounds in the worse case.  You could write all of this again
+10:05:09 with theta instead of O and it still holds.  You are right.  One point to note is there's a circular aspect of this equation.  We define T
+10:05:22 in terms of itself.  The reason this is okay is because we are not defining T of N in terms of T of N it's in terms of T on different values
+10:05:33 if N over two is strictly smaller than N there's no circular aspect here.  However, we do need a base case so you don't just keep dividing
+10:05:42 N by two for ever.  If we keep doing that eventually you get down to N equals three and now you can't divide this by two anymore.
+10:05:54 It's always important to define the base case of the equation.  Sometimes we will play loose with this when the base case is
+10:06:03 obvious.  It's important to remember there's always a base case.  For some small value of N instead of doing things recursively we have
+10:06:16 some base case of the algorithm that handles that directly.  Note, always need a base case for recurrences.
+10:06:26 Which says once you get down to small enough N you don't recursively call the algorithm again.
+10:06:33 Instead we do something else.  This is problem specific.
+10:06:44 But for the particular case of the convex hull algorithm you may remember the idea was once you got down to N equals three
+10:06:52 you know the convex hull consists of that triangle of those three points.  If you have fewer than three points the convex hull is
+10:07:09 given by the line segment or single point consisting of those.  For convex hull N less than or equal to three is the base case.
+10:07:19 One you get to N less than or equal to three you stop doing this recursive splitting and say okay these points themselves are the
+10:07:28 convex hull.  This is something to keep in mind when defining a recursive algorithm to make sure you have a base case.
+10:07:37 Other wise you get an infinite loop of doing more recursion and it never bottoms out and stops.
+10:07:51 This is a recurrence equation that defines the run time of the algorithm in terms of the run time on smaller amounts of input.
+10:08:02 How do we use this to actually figure out what the run time is?  Is it theta of N or theta of N log N or N squared?  Something like that.
+10:08:13 There are different techniques which we can use to solve a recurrence equation like this.  I will talk about one or two of those today and
+10:08:27 we will go in to detail on Wednesday.  The key approach which you can use to help yourself visualize what one of these recurrences
+10:08:36 means and to try to solve it in a little bit informal way but one that's quite useful forgetting a sense of what the answer should be
+10:08:48 is called a recursion tree.  How to solve the recurrence.
+10:08:55 Method one which we will talk about is draw a recursion tree.
+10:09:10 What's the idea of a recursion tree?  The idea is we will make a graph showing how all of the recursive calls in the algorithm depend on
+10:09:20 each other.  What we will do is say, let's continue the example of the convex hull.  At the top of the tree we will have the original run time
+10:09:32 that we are trying to figure out.  Here we have T of N.  Let me continue the example before.  I will write it again.
+10:09:42 It's T of N is two times T of N over two plus O of N.  That was our recurrence.
+10:09:50 In this tree, the root note is going to be this quantity we are trying to find out, T of N.
+10:10:03 Now we are going to show as the children of the tree all the recursive calls.  In this case we have two recursive calls.  Each of size N over two.
+10:10:23 If we think about what is happening in each of these recursive calls those divide the input and making further recursive calls.
+10:10:37 This recursive call will make two further ones of problems of size N over four because the total size is N over two and it cuts it in to right
+10:10:49 halves and we have N over four and similar to this side.  This keeps going until we get to the base case.
+10:10:58 At the bottom of the tree we have a bunch of leaves of size three or maybe potentially other sizes like two or something like that.
+10:11:07 The base case as we saw was anything with three or fewer points.  That's what we get at the bottom of the tree.
+10:11:16 There's a few things we can indicate on this tree that help us add up all the work being done across all of these calls.
+10:11:25 We are trying to figure out the total run time of these calls including the nonrecursive work they are doing.
+10:11:34 Let's plot things here.  I will indicate the depth in the tree first of all.  Let's call the top of the tree here depth zero.
+10:11:44 This is depth one in the tree, depth two, then somewhere in the middle of the tree we have depth D.
+10:11:53 The first thing to think about is how deep with the tree be?  To figure that out, we have to work out how many times are you splitting
+10:12:05 the input in half until you get down to the base case?  How we can figure that out is by looking at what are the sizes of the sub
+10:12:22 problems in each layer?  If we look at subproblem size, we will make another column for that.  At the top we have one call of size N.
+10:12:30 The next one is sets of points size N over two.  Here it's N over four.  In general if we go to depth D we are going to have the original
+10:12:42 number of points divided up in to two to the D pieces.  Now down here at the base case we are going to have things of size at most
+10:12:54 three because that was the base case.  Now from this information we can work out how deep the tree will get, why?  Because we need
+10:13:04 the problem size of N over two to the D has to get down to be less than three.
+10:13:09 To be at the base case.  Let me write that down.
+10:13:22 The base case is reached when N over two to the D is at most three.  If we solve for D here we can rearrange this a bit.
+10:13:33 .  So, we have two to the D is greater than or equal to N over three.  If we want to find the D at which this happens we can assume
+10:13:44 that N was a power of two times three but I will try to be more precise here.  We can take log of both sides here and we will get D is
+10:13:57 at least log based two because we had a exponential two to the D here.  Log based two of N over three.
+10:14:10 Now, this D, if we say we want to find the depth at which this happens exactly.  Let's assume things are a power of two.
+10:14:21 What we get is D would be log based two of N over three which you can expand as log based two of N minus log based two of three.
+10:14:36 That's using the rule of a log of a division like this is the log of the numerater minus the log of the denominater.
+10:14:45 That's theta of log N.  We we wonder what is the order of the depth of the tree it's log N because it's log N minus some constant.
+10:14:58 This is log based two of three.  That's just some number.  The depth of this tree is actually of order log N.
+10:15:06 Can everyone see that?
+10:15:23 If we were being precise it's actually log based two of N over three.  The reason it's log based two is because we were dividing the size
+10:15:35 of the input in half each time.  We have N, N over two, N over eight, et cetera.  The number of times you divide by half until you get to
+10:15:46 a constant size like three is given by the algorithm with the base given how much you divide each time.  If you divide by half you have
+10:15:54 log based two.  If we were dividing by three it's log base three.  Asymptoticly if we look at the order it's log of N.
+10:16:03 Now we know how deep this tree is.  Now let's try to add up how much work is being done over the entire tree.
+10:16:13 There are things we can count here.  We have seen how big the problems are at each level.  How many subproblems are there at
+10:16:21 each level.  Let's put that in another column.  We will say the number of subproblems.
+10:16:36 Here we have only one problem.  At level one we have two.  Here each of those splits in two so we have four, et cetera.
+10:16:47 In general we have two to the D level at the Dth level.  How many subproblems do we have at the last level?  We have N points
+10:16:57 divided up in to sets of size three.  Some may be smaller than three.  Let's assume it's a nice even power of two times three.
+10:17:07 Then we get on the order of N over three subproblems down here.  We have N points to begin with.  We now have subproblems of size
+10:17:20 three.  There's roughly N over three of them.  A question of why are we not including the big O of N part here in this tree?
+10:17:30 Shouldn't each note have three children?  Good point.  We are trying to show on the tree is the recursive calls.  I have not indicated yet
+10:17:41 this part.  You are right we need to add this up.  This term here, O of N, we have to take that in to account.  You are right.
+10:17:52 That's what we will do next.  Let's have a last column here which is going to be the total amount of nonrecursive work done at each level.
+10:18:07 That's going to be this term at each level of the tree.  We will say a total nonrecursive step.
+10:18:25 What will it be at this first level?  Well, it's O of N.  We should be precise here.  O of N we actually want it -- it's really theta of N.
+10:18:35 I should write that in there.  We know we are going to do on the order of N steps actually.  We can write this as being C N.
+10:18:46 Some constant C that's hidden by the asymptotic notation here.  That's the work done in this single call.  We have one subproblem of size
+10:19:01 N.  It's going to be CN work times one subproblem.  If we look here in each of these two calls we have a subproblem of size N over two.
+10:19:11 This term is going to be C times N over two.  Does everyone see that?
+10:19:23 Remember this asymptotic notation here is concealing some potential hidden multiplication factor.  Call that C.  If this is actually
+10:19:36 it could be a plus CN.  Something like that.  Then this would be where I'm getting the C from.  In each of these two calls we do C times
+10:19:52 N over two work.  We have two subproblems of that size.  Down here we have four subproblems.  Each is given a set of points size N
+10:20:01 over four.  The nonrecursive work they are doing is C times N over four times the four subproblems.
+10:20:13 In general if we look at level D of this tree the subproblem size is N over two to the D so the amount of work a single call is doing is C times
+10:20:23 N over two to the D, but we have two to the D subproblems.  So the total amount of work at that level is that times two to the D.
+10:20:40 Finally we get down here and we have the amount of work done is C times three.  It could be less than three because we say the
+10:20:49 subproblem size could be three or less.  Let's assume they are exactly three.  Times N over three subproblems.
+10:21:01 We will notice in this example, all of these actually just evaluate to CN.
+10:21:14 Now we have the total amount of work being done at each level is CN.  How many levels are there?  Well, we saw there are theta of log N
+10:21:36 levels.  The conclusion is that the work at each level, oops, the work at each level of the tree is theta of N.
+10:21:54 There are theta of log N levels so the total run time is theta of N log N.
+10:22:08 We have got N work at each level.  Here we have CN at level zero.  CN at level one.  CN at level two, et cetera.
+10:22:20 We have log N levels.  It's going to be N plus N plus N log N times that's N times log N so the over all amount of work being done in
+10:22:32 the entire tree from the original algorithm plus all of the times spent in the recursive calls is order N log N.
+10:22:47 This is one way to solve these recurrences.  We draw this tree showing the recursive calls.
+10:22:56 You work out how big are the sub problems at each level and how many are there.  You use that to add up how much work is done at each
+10:23:02 level of the tree and then you multiply that by the depth of the tree to get the total amount of time.
+10:23:10 That's this method of recursive trees.  Questions about this?
+10:23:30 Can I explain -- yeah, why the number of subproblems at the base of the tree is roughly N over three?
+10:23:40 I was in precise here.  The reason was just that we have originally a problem of size N.
+10:23:54 We are dividing it by two each time we go down.  At left D we have N over two to the D.  At the bottom all the problems are of case three or
+10:24:06 less.  If we assume they are all the same size, size three, then since there were N points to begin with and we divided them in to
+10:24:20 groups of size three.  How many groups will there be?  N over size three.  If we took the original points and divide them in to triples
+10:24:29 how many triples will there be?  It has to be N over three so they add up to N points in total.
+10:24:39 If we do this we have to be careful because some of the base cases are not exactly three.  If you start with five points for example then
+10:24:44 when you divide it up you have three points on one side and two points on the other.
+10:24:55 We would have to be careful here putting in floors and ceilings.  I will talk about on Wednesday since we don't have time now
+10:25:08 how you would actually formally prove that you have solved -- this that function you ended up with N log N actually solves the original
+10:25:17 recurrence.  You can use that doing reduction.  On Wednesday I will start by showing how we can use this approach here where
+10:25:27 we are being in precise to give a good guess of what the run time of the algorithm is.  Although we were in precise we did capture the
+10:25:36 essential parts that the depth of the tree is log rhythmic and there's a linear amount of work at each level.  You can make this reasoning
+10:25:44 precise but another approach is to get a guess for how long the algorithm takes to run by doing this recursion tree method and
+10:25:51 formally prove that it's correct using induction.  We will start with that on Wednesday.
+10:26:02 Then we will talk about a general theorem which you can use called the master theorem for recurrences.
+10:26:13 It's proved using the recursion tree which gives you a formula that you can plug in the various constants from the recurrence in to this
+10:26:20 general formula and it will give the answer to what the solution is.  That's all the time we have today.
+10:26:30 I will hang around if you have questions.  I will see you Wednesday.  Look out for the home work that should be posted tomorrow.

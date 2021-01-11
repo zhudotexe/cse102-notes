@@ -152,3 +152,31 @@ Big-:math:`\Theta`
 - if :math:`f(n) = \Theta(n)`, it is *linear time*
 - :math:`\log n = O(n)` but :math:`\neq \Theta(n)`
 - :math:`5n^2+3n = \Theta(n^2)`
+
+Examples
+^^^^^^^^
+
+As example done in class, :math:`\log_{10}(n)` is:
+
+- :math:`\Theta(\log_2(n))`
+    - Because :math:`\log_{10}(n)=\frac{\log_2(n)}{\log_2(10)} = c\log_2(n)` for some *c*
+- NOT :math:`\Theta(n)`
+    - need :math:`\log_{10}(n) \geq cn` for some :math:`c > 0` for some sufficiently large *n*, which does not hold
+    - so :math:`\log_{10}(n) \neq \Omega(n)`
+- :math:`O(n^2)`
+- :math:`\Omega(1)`
+    - :math:`\log_{10}(n) \geq c \cdot 1` for some *c*
+- :math:`\Theta(2\log_{10}(n))`
+    - You can set :math:`c = \frac{1}{2}`
+
+Some particular growth rates:
+
+- Constant time: :math:`\Theta(1)` (not growing with n)
+    - e.g. looking up an element at a given array index
+- Logarithmic time: :math:`\Theta(\log n)` (base does not matter)
+    - e.g. binary search
+- Linear time: :math:`\Theta(n)`
+    - e.g. finding the largest element in an unsorted array
+- Quadratic time: :math:`\Theta(n^2)`
+- Exponential time: :math:`\Theta(2^n), \Theta(1.5^n), \Theta(c^n), c > 1`
+    - e.g. brute-force algorithms

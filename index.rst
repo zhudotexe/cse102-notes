@@ -18,12 +18,18 @@ Week 1
 
 :download:`1/8/2020: Asymptotic Notation <_static/lec3.txt>`
 
+Week 2
+^^^^^^
+
+:download:`1/11/2020: Examples and Recurrence <_static/lec4.txt>`
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
 
    intro
    algorithms
+   recurrence
 
 
 
