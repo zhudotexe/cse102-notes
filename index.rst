@@ -23,6 +23,8 @@ Week 2
 
 :download:`1/11/2020: Examples and Recurrence <_static/lec4.txt>`
 
+:download:`1/13/2020: Induction and Master Theorem <_static/lec5.txt>`
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
