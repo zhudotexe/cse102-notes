@@ -85,6 +85,18 @@ the same recurrence with either :math:`T(\lfloor n/b \rfloor)` or :math:`T(\lcei
     - Case 1: :math:`n = O(n^{2-\epsilon})`
     - so :math:`T(n) = \Theta(n^2)`
 - :math:`T(n) = T(2n/3)+1`
-    - :math:`c = \log_{2/3} 1 = 0`
+    - :math:`c = \log_{3/2} 1 = 0`
     - Case 2: :math:`1 = \Theta(n^0) = \Theta(1)`
     - so :math:`T(n) = \Theta(\log n)`
+- :math:`T(n) = 3T(n/4)+n^2`
+    - :math:`c = \log_4 3 < 1`
+    - Case 3: :math:`n^2 = \Omega(n^{c+1})` (:math:`\epsilon = 1, c + 1 < 2`)
+    - check: is :math:`3(n/4)^2 \leq dn^2` for some *d*?
+        - :math:`\frac{3}{16}n^2 \leq dn^2` for :math:`d=\frac{3}{16}<1`
+    - so :math:`T(n)=\Theta(n^2)`
+- :math:`T(n)=4T(n/2)+3n^2`
+    - :math:`c=\log_2 4 = 2`
+    - Case 2: :math:`3n^2=\Theta(n^2)`
+    - so :math:`T(n)=\Theta(n^2 \log n)`
+
+There is a generalization of the master theorem for differently-sized methods: the Akra-Bazzi method (not in this class)

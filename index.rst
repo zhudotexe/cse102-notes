@@ -25,6 +25,8 @@ Week 2
 
 :download:`1/13/2020: Induction and Master Theorem <_static/lec5.txt>`
 
+:download:`1/15/2020: Divide/Conquer and Mergesort <_static/lec6.txt>`
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
@@ -32,6 +34,7 @@ Week 2
    intro
    algorithms
    recurrence
+   divide
 
 
 
