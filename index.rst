@@ -12,20 +12,25 @@ Click to download.
 
 Week 1
 ^^^^^^
-:download:`1/4/2020: Introduction <_static/lec1.txt>`
+:download:`1/4/2021: Introduction <_static/lec1.txt>`
 
-:download:`1/6/2020: Algorithms/RAM Model <_static/lec2.txt>`
+:download:`1/6/2021: Algorithms/RAM Model <_static/lec2.txt>`
 
-:download:`1/8/2020: Asymptotic Notation <_static/lec3.txt>`
+:download:`1/8/2021: Asymptotic Notation <_static/lec3.txt>`
 
 Week 2
 ^^^^^^
 
-:download:`1/11/2020: Examples and Recurrence <_static/lec4.txt>`
+:download:`1/11/2021: Examples and Recurrence <_static/lec4.txt>`
 
-:download:`1/13/2020: Induction and Master Theorem <_static/lec5.txt>`
+:download:`1/13/2021: Induction and Master Theorem <_static/lec5.txt>`
 
-:download:`1/15/2020: Divide/Conquer and Mergesort <_static/lec6.txt>`
+:download:`1/15/2021: Divide/Conquer and Mergesort <_static/lec6.txt>`
+
+Week 3
+^^^^^^
+
+:download:`1/20/2021: D/C Integer Multiplication <_static/lec7.txt>`
 
 .. toctree::
    :maxdepth: 5
