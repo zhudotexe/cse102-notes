@@ -32,6 +32,8 @@ Week 3
 
 :download:`1/20/2021: D/C Integer Multiplication <_static/lec7.txt>`
 
+:download:`1/22/2021: D/C Closest Points <_static/lec8.txt>`
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
@@ -40,6 +42,7 @@ Week 3
    algorithms
    recurrence
    divide
+   structures
 
 
 

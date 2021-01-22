@@ -197,4 +197,77 @@ Well.
 In 2019, a :math:`O(n \log n)` algorithm was found, but the point at which it becomes faster is only for astronomically
 large *n*.
 
+Closest Pair
+------------
+*find the closest pair of points in the plane*
 
+Given a set of *n* points in the plane, find the pair of points which are closest together.
+
+.. image:: _static/divide1.png
+    :width: 250
+
+Naive algorithm: Check all possible pairs, and take the pair with least distance (:math:`\Theta(n^2)`).
+
+D/C Algorithm
+^^^^^^^^^^^^^
+Divide: take the left and right halves of the points
+
+- In order to do this efficiently, start by sorting the points by their x-coordinate
+- Then the first half of the sorted array has the leftmost n/2 points, and the second half the n/2 rightmost
+
+.. image:: _static/divide2.png
+    :width: 250
+
+Then, use recursive calls to find the closest pair of points on the left side and right side.
+
+.. image:: _static/divide3.png
+    :width: 250
+
+But, we haven't considered pairs where one point is in the left half and the other is in the right half.
+
+If we simply checked all pairs such that one point was on the left and one was on the right, we'd still end up with
+:math:`\Theta(n^2)`. Instead, we filter out many pairs which cannot be the closest.
+
+**Idea**: If the recursive calls find pairs at distances :math:`\delta_L, \delta_R` from each other on the left
+and right sides respectively, then we can ignore all points that are further than
+:math:`\delta = \min(\delta_L, \delta_R)` from the dividing line.
+
+.. image:: _static/divide4.png
+    :width: 350
+
+Now, we can consider only the points in the "tube". We can find the points inside this tube in linear time, since
+the points are sorted by x-coord already.
+
+**Idea 2**: On both the left and right, no pairs are closer than :math:`\delta` together. By drawing boxes of
+size :math:`\delta/2 \times \delta/2`, there is *at most one* point in each box.
+
+.. image:: _static/divide5.png
+    :width: 350
+
+Then, any point on the left can only be within :math:`\delta` of a finite number of boxes on the right.
+
+So, we'll take the points in the left and right halves of the tube, and consider them in y-coordinate order
+(sort by y at beginning of algorithm so this is linear). For each point, compute its distance to the next
+15 points in the order, keeping track of the closest pair found so far.
+
+.. note::
+    Why 15? Because we drew these boxes, if a point is to be within :math:`\delta` of the considered point, it
+    must be within one of the next 15 boxes. We check 15 points for the worst case scenario, if every single
+    box is full.
+
+    .. image:: _static/divide6.png
+        :width: 250
+
+If we find a pair that is closer than :math:`\delta`, return that pair; otherwise return the pair at distance
+:math:`\delta`.
+
+Runtime
+^^^^^^^
+
+- First, we sort by *x* and *y* at the beginning: :math:`2n\log n = \Theta(n \log n)`
+    - This doesn't affect the recurrence, since it only happens once, not at each level of recursion.
+- Recursive part: 2 calls for the left and right: :math:`2T(n/2)`
+- Then a linear amount of work to filter out points not in the tube: :math:`\Theta(n)`
+- Then linear amount of work again, comparing each point to the 15 next points: :math:`15n = \Theta(n)`
+
+So we have :math:`T(n)=2T(n/2)+\Theta(n)`, which is :math:`T(n)=\Theta(n \log n)`.
