@@ -34,6 +34,11 @@ Week 3
 
 :download:`1/22/2021: D/C Closest Points <_static/lec8.txt>`
 
+Week 4
+^^^^^^
+
+:download:`1/25/2021: Priority Queues <_static/lec9.txt>`
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
