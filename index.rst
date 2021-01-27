@@ -39,6 +39,8 @@ Week 4
 
 :download:`1/25/2021: Priority Queues <_static/lec9.txt>`
 
+1/27/2021: Amortized Runtimes (no transcript available)
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
