@@ -41,6 +41,8 @@ Week 4
 
 1/27/2021: Amortized Runtimes (no transcript available)
 
+1/29/2021: Graphs (no transcript available)
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
@@ -50,6 +52,7 @@ Week 4
    recurrence
    divide
    structures
+   graphs
 
 
 
