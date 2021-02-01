@@ -43,6 +43,11 @@ Week 4
 
 1/29/2021: Graphs (no transcript available)
 
+Week 5
+^^^^^^
+
+2/1/2021: BFS/DFS (no transcript available)
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
