@@ -118,13 +118,81 @@ depth). This can be implemented without a queue, only using the call stack.
     We call :math:`\Theta(n+m)` linear time for graphs with *n* vertices and *m* edges.
 
 Representing Graphs
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 - Adjacency lists: for each vertex, have a list of outgoing edges
     - Allows for linear iteration over all edges from a vertex
+    - Checking if a particular edge exists is expensive
+    - Size for *n* vertices, *m* edges = :math:`\Theta(n + m)`
 - Adjancency matrix: a matrix with entry :math:`(i, j)` indicating an edge from *i* to *j*
     - Constant time to check if a particular edge exists
     - but the size based on number of vertices is :math:`\Theta(n^2)`
 
 .. image:: _static/graphs9.png
     :width: 350
+
+A graph with *n* vertices has :math:`\leq {n \choose 2}` edges if undirected, or :math:`\leq n^2` if directed and
+we allow self-loops (or :math:`\leq n(n-1)` if no self loops).
+
+In all cases, :math:`m=O(n^2)`. This makes the size of an adjacency list :math:`O(n^2)`.
+
+If we really have a ton of edges, the two representations are the same; but if you have a *sparse* graph
+(:math:`m << n^2`), then the adjacency list is more memory-efficient.
+
+This means that a :math:`\Theta(n^2)` algorithm can run in linear time (:math:`\Theta(n+m)`) on *dense* graphs
+because :math:`m = \Theta(n^2)`.
+
+So :math:`\Theta(n^2)` is optimal for dense graphs, but not for sparse graphs.
+
+More Problems
+-------------
+
+Cyclic Test
+^^^^^^^^^^^
+*testing if a graph is cyclic*
+
+- use DFS to traverse, keep track of vertices visited along the way
+- if we find an edge back to any such vertex, we have a cycle
+
+Topological Order
+^^^^^^^^^^^^^^^^^
+- Finding a topological ordering of a DAG (directed acyclic graph)
+    - an ordering :math:`v_1, v_2, v_n` of the vertices such that if :math:`(v_i, v_j) \in E`, then :math:`i < j`
+    - we can find topological order using *postorder traversal* in DFS
+        - after DFS has visited all descendants of a vertex, prepend the vertex to the topological order
+    - make sure to iterate all connected components of the graph, not just one
+
+.. image:: _static/graphs10.png
+    :width: 250
+
+.. code-block:: c
+
+    def Topo-Sort(G):
+        for v in V:
+            if v is not visited:
+                Visit(v)
+
+    def Visit(v):
+        mark v as visited
+        mark v as in progress // temporarily
+        for edges (v, u) in E:
+            if u is in progress, G is cyclic // there is no topological order
+            if u is not visited:
+                Visit(u)
+        mark v as not in progress
+        prepend v to the topological order
+
+.. image:: _static/graphs11.png
+    :width: 250
+
+Minimum Spanning Tree
+^^^^^^^^^^^^^^^^^^^^^
+Suppose you need to wire all houses in a town together (represented as a graph, and the edges represent where power
+lines can be built), Build a power line to use the minimal amount of wire.
+
+.. image:: _static/graphs12.png
+    :width: 350
+
+Given a weighted graph, (i.e. each edge has a numerical weight), we want to find a minimum spanning tree:
+a selection of edges of G that connects every vertex, is a tree (any cycles are unnecessary), and has least total
+weight.

@@ -48,6 +48,8 @@ Week 5
 
 2/1/2021: BFS/DFS (no transcript available)
 
+2/3/2021: Cyclic Test/Topological Sort (no transcript available)
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
