@@ -186,7 +186,7 @@ Topological Order
     :width: 250
 
 Minimum Spanning Tree
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 Suppose you need to wire all houses in a town together (represented as a graph, and the edges represent where power
 lines can be built), Build a power line to use the minimal amount of wire.
 
@@ -196,3 +196,90 @@ lines can be built), Build a power line to use the minimal amount of wire.
 Given a weighted graph, (i.e. each edge has a numerical weight), we want to find a minimum spanning tree:
 a selection of edges of G that connects every vertex, is a tree (any cycles are unnecessary), and has least total
 weight.
+
+Kruskal's Algorithm
+^^^^^^^^^^^^^^^^^^^
+Main idea: add edges to the tree 1 at a time, in order from least weight to largest weight, skipping edges that
+would create a cycle
+
+.. image:: _static/graphs13.png
+    :width: 350
+
+This is an example of a greedy algorithm, since it picks the best available option at each step.
+
+We use a disjoint-set forest to keep track of sets of connected components.
+
+.. image:: _static/graphs14.png
+    :width: 350
+
+Initially, all vertices are in their own sets. When we add an edge, we Union the sets of its two vertices together.
+If we would add an edge that would connect two vertices in the same set, we skip it (it would cause a cycle).
+
+.. code-block:: c
+    :linenos:
+
+    def Kruskal(G, weights w):
+        initialize a disjoint-set forest on V
+        sort E in order of increasing w(e)
+        while all vertices are not connected:  // i.e. until n-1 edges are added
+            take the next edge from E, (u, v)
+            if Find(u) != Find(v):
+                add (u, v) to the tree
+                Union(u, v)
+
+Runtime:
+
+- L2: :math:`\Theta(n)`
+- L3: :math:`\Theta(m \log m)`
+- L4: :math:`m` iterations of the loop worst case
+    - Note that this lets us use the amortized runtime of Find and Union
+    - L6: two finds (:math:`\Theta(\alpha(n))` each)
+    - L8: and a union (:math:`\Theta(\alpha(n))`)
+- Note that :math:`m \alpha(n) < m \log m` since :math:`n \leq m`
+
+So the total runtime is :math:`\Theta(m \log m) = \Theta(m \log n)` (since :math:`m = \Omega(n)` since G is connected).
+
+This assumes G is represented by an adjacency list, so that we can construct the list E in :math:`\Theta(m)` time.
+
+Prim's Algorithm
+^^^^^^^^^^^^^^^^
+Main idea: build the tree one vertex at a time, always picking the cheapest vertex
+
+.. image:: _static/graphs15.png
+    :width: 200
+
+Need to maintain a set of vertices S which have already been connected to the root; also need to maintain the cost of
+all vertices which could be added next (the "frontier"). 
+
+Use a priority queue to store these costs: the key of vertex :math:`v \notin S` will be
+:math:`\min w((u, v) \in E), u \in S`
+
+.. image:: _static/graphs16.png
+    :width: 200
+
+After selecting a vertex *v* of least cost and adding it to *S*, some vertices may now be reachable via
+cheaper edges, so we need to decrease their keys in the queue.
+
+.. code-block:: c
+    :linenos:
+
+    def Prim(G, weights w, root r):
+        initialize a PQ Q with items V  // all keys are infinity except r = 0
+        initialize an array T[v] to None for all vertices v in V
+        while Q is not empty:
+            v = Delete-Min(Q)  // assume delete returns the deleted elem
+            for each edge (v, u):
+                if u is in Q and w(v, u) < Key(u):
+                    Decrease-Key(Q, u, w(v, u))
+                    T[u] = (v, u)  // keep track of the edge used to reach u
+        return T
+
+.. image:: _static/graphs17.png
+    :width: 750
+
+Runtime:
+
+- *n* iterations of the main loop (1 per vertex), with 1 Delete-Min per iteration
+- every edge considered at most once in each direction, so at most *m* Decrease-Key
+- we use a Fibonacci heap, (Delete-Min = :math:`\Theta(\log n)`, Decrease-Key = :math:`\Theta(1)` amortized)
+- so the total runtime is :math:`\Theta(m + n \log n)`.

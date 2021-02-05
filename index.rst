@@ -50,6 +50,8 @@ Week 5
 
 2/3/2021: Cyclic Test/Topological Sort (no transcript available)
 
+2/5/2021: Minimum Spanning Trees (no transcript available)
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
