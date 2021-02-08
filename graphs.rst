@@ -283,3 +283,60 @@ Runtime:
 - every edge considered at most once in each direction, so at most *m* Decrease-Key
 - we use a Fibonacci heap, (Delete-Min = :math:`\Theta(\log n)`, Decrease-Key = :math:`\Theta(1)` amortized)
 - so the total runtime is :math:`\Theta(m + n \log n)`.
+
+.. note::
+    We can compare the runtime of these two algorithms on sparse and dense graphs:
+
+    On a sparse graph, i.e. :math:`m = \Theta(n)`, the two have the same runtime: :math:`\Theta(n \log n)`.
+
+    On a dense graph, i.e. :math:`m = \Theta(n^2)`, Kruskal's ends up with :math:`\Theta(n^2 \log n)` and Prim's with
+    :math:`\Theta(n^2)`.
+
+Proofs
+^^^^^^
+Need to prove that the greedy choices (picking the cheapest edge at each step) leads to an overall optimal tree.
+
+Key technique: loop invariants: A property P that:
+
+1. is true at the beginning of the loop
+2. is preserved by one iteration of the loop (i.e. if P is true at the start of the loop, it is true at the end)
+
+By induction on the number of iterations, a loop invariant will be true when the loop terminates. For our
+MST algorithms, our invariant will be: The set of edges added to the tree so far is a subset of some MST.
+
+If we can show that this is an invariant, then since the tree we finally return connects all vertices, it must be
+a MST.
+
+**Lemma** (cut property): Let :math:`G=(V,E)` be a connected undirected graph where all edges have distinct weights.
+For any :math:`S\subseteq V`, if :math:`e \in E` is the cheapest edge from :math:`S` to :math:`V-S`, every
+MST of :math:`G` contains :math:`e`.
+
+.. image:: _static/graphs18.png
+    :width: 250
+
+Kruskal's
+"""""""""
+**Thm**: Kruskal's alg is correct.
+
+**Pf**: We'll establish the loop invariant above.
+
+Base case: before adding any edges, the edges added so far is :math:`\emptyset`, which is a subset of some MST.
+
+Inductive case: suppose the edges added so far are contained in an MST :math:`T`, and we're about to add the edge :math:`(u, v)`.
+
+- Let :math:`S` be all vertices already connected to :math:`u`.
+- Since Kruskal's doesn't add edges between already connected vertices, :math:`v \notin S`
+- Then :math:`(u, v)` must be the cheapest edge from :math:`S` to :math:`V-S`, since otherwise a cheaper edge would have been added earlier in the algorithm, and then :math:`v \in S`
+- Then by the cut property, every MST of :math:`G` contains :math:`(u, v)`
+- In particular, :math:`T` contains :math:`(u, v)`, so the set of edges added up to and including :math:`(u, v)` is also contained in :math:`T`, which is a MST
+- So the loop invariant is actually an invariant, and by induction it holds at the end of the algorithm
+
+So *all* edges added are in an MST, and since they are a spanning tree, they are a MST. Since the algorithm doesn't
+terminate until we have a spanning tree, the returned tree must be a MST.
+
+Prim's
+""""""
+Idea: Let :math:`S` be the set of all vertices connected so far. Prim's then adds the cheapest edge from :math:`S` to
+:math:`V - S`.
+
+So by the cut property, the newly added edge is part of every MST. The proof follows as above.

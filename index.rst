@@ -52,6 +52,10 @@ Week 5
 
 2/5/2021: Minimum Spanning Trees (no transcript available)
 
+Week 6
+^^^^^^
+2/8/2021: Proving Kruskal's and Prim's (no transcript available)
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:
