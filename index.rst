@@ -6,6 +6,17 @@
 Welcome to cse102-notes's documentation!
 ========================================
 
+.. toctree::
+   :maxdepth: 5
+   :caption: Contents:
+
+   intro
+   algorithms
+   recurrence
+   divide
+   structures
+   graphs
+
 Transcripts
 -----------
 Click to download.
@@ -56,16 +67,9 @@ Week 6
 ^^^^^^
 2/8/2021: Proving Kruskal's and Prim's (no transcript available)
 
-.. toctree::
-   :maxdepth: 5
-   :caption: Contents:
+2/10/2021: Midterm
 
-   intro
-   algorithms
-   recurrence
-   divide
-   structures
-   graphs
+2/12/2021: Proving Cut Property, SSSP (no transcript available)
 
 
 

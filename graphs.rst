@@ -340,3 +340,61 @@ Idea: Let :math:`S` be the set of all vertices connected so far. Prim's then add
 :math:`V - S`.
 
 So by the cut property, the newly added edge is part of every MST. The proof follows as above.
+
+Cut Property
+""""""""""""
+Proof of the following lemma, restated from above:
+
+Let :math:`G=(V,E)` be a connected undirected graph where all edges have distinct weights.
+For any :math:`S\subseteq V`, if :math:`e \in E` is the cheapest edge from :math:`S` to :math:`V-S`, every
+MST of :math:`G` contains :math:`e`.
+
+.. image:: _static/graphs19.png
+    :width: 350
+
+Suppose there was some MST :math:`T` which *doesn't* contain :math:`e=(u, v)`. Since :math:`T` is a spanning tree,
+it contains a path :math:`P = (u, ..., v)`. Since :math:`u \in S` and :math:`v \notin S`, :math:`P` contains some
+edge :math:`e' = (u', v')` with :math:`u' \in S, v' \notin S`. We claim that exchanging :math:`e` for :math:`e'` will
+give a spanning tree :math:`T'` of lower weight than :math:`T`, which contradicts :math:`T` being an MST.
+
+First, :math:`T'` has smaller weight than :math:`T`, since :math:`e` is cheaper than :math:`e'` by definition.
+
+Next, :math:`T'` connects all vertices, since :math:`T` does, and any path that went through
+:math:`e'` can be rerouted to use :math:`e` instead: follow :math:`P` backwards from :math:`u'` to :math:`u`, take
+:math:`e` from:math:`u` to :math:`v`, then follow :math:`P` backwards from :math:`v` to :math:`v'`, and then continue
+the old path normally. (e.g. :math:`(a, ..., u', v', ..., b) \to (a, ..., u', ..., u, v, ..., v', ..., b)`)
+
+Finally, :math:`T'` is also acyclic, since adding :math:`e` to :math:`T` produces a single cycle, which is then
+broken by removing :math:`e'`.
+
+So :math:`T'` is a spanning tree of lower weight than :math:`T` - contradiction! Therefore every MST of G must contain
+the edge *e*.
+
+.. note::
+    To relax the assumption of distinct edge weights, imagine adding tiny extra weights to break any ties in the MST
+    algorithm; if the changes in the weights are sufficiently small, then any MST of the new graph is also an
+    MST of the original (see hw4).
+
+Single-Source Shortest Paths
+----------------------------
+Given a directed graph with nonnegative edge weights (lengths) and a start vertex :math:`s`, find the shortest paths
+from :math:`s` to every other vertex (shortest = minimum total length/weight). (Assume every vertex is reachable from
+*s*.)
+
+To represent the shortest paths, we use a *shortest-path tree*: each vertex stores the edge that should be used to
+reach it from *s* along the shortest path.
+
+.. image:: _static/graphs20.png
+    :width: 250
+
+Dijkstra's Algorithm
+^^^^^^^^^^^^^^^^^^^^
+Greedy algorithm for building the shortest-path tree. Very similar to Prim's, but the cost of a vertex is the length
+of the shortest known path to reach it from *s*
+
+Idea: Maintain a set of vertices S already added to the shortest-path tree; for these vertices, we know their distance
+d(v) from s. At each step, add a vertex :math:`v \notin S` which minimizes :math:`d(u) + w(u, v)` over all 
+:math:`u \in S` with :math:`(u, v) \in E`
+
+.. image:: _static/graphs21.png
+    :width: 750
