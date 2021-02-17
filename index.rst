@@ -71,6 +71,11 @@ Week 6
 
 2/12/2021: Proving Cut Property, SSSP (no transcript available)
 
+Week 7
+^^^^^^
+
+2/17/2021: Dijkstra's Algorithm (no transcript available)
+
 
 
 Indices and tables

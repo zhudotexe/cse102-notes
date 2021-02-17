@@ -387,6 +387,17 @@ reach it from *s* along the shortest path.
 .. image:: _static/graphs20.png
     :width: 250
 
+Ex. For this graph, starting from vertex *z*, the shortest-path tree *T* is:
+
+.. image:: _static/graphs22.png
+    :width: 250
+
+.. code-block:: text
+
+    T[x] = (z, x)
+    T[y] = (w, y)
+    T[w] = (z, w)
+
 Dijkstra's Algorithm
 ^^^^^^^^^^^^^^^^^^^^
 Greedy algorithm for building the shortest-path tree. Very similar to Prim's, but the cost of a vertex is the length
@@ -398,3 +409,52 @@ d(v) from s. At each step, add a vertex :math:`v \notin S` which minimizes :math
 
 .. image:: _static/graphs21.png
     :width: 750
+
+.. code-block:: py
+    :linenos:
+
+    def Dijkstra(G, weights w, source s in V):
+        Initialize a PQ Q with items V; all keys d(v) = inf except d(s) = 0
+        Initialize an array T[v] to None for all v in V
+        while Q is not empty:
+            u = Delete-Min(Q)
+            for each edge (u, v) in E:
+                if v in Q and d(v) > d(u) + w(u, v):
+                    Decrease-Key(Q, v, d(u) + w(u, v))
+                    T[v] = u
+        return T
+
+Runtime: Same as Prim's algorithm - :math:`\Theta(m + n \log n)` using a Fibonacci heap
+
+Proof
+"""""
+To prove correctness, we'll use the following loop invariant I:
+
+for all vertices *v* popped off the queue so far:
+
+- :math:`d(v)` is the distance from *s* to *v* and
+- there is a path :math:`P_v` from *s* to *v* in *T* which is a shortest path
+    - :math:`P_v=(v, T[v], T[T[v]], ..., s)` reversed
+
+To show I is an invariant, need to prove it is true initially and it preserved by one iteration. If *S* is the set
+of popped-off vertices, then initially :math:`S = \emptyset` so I holds vacuously.
+
+Suppose I holds at the beginning of an iteration. If we pop vertex *v*, and :math:`T[v]=(u, v)`, then :math:`u \in S`,
+so :math:`P_u` is a shortest path from *s* to *u* and :math:`d(u)` is the distance from *s* to *u*. Also
+:math:`d(v) = d(u) + w(u, v)` by line 8, which is the length of the path :math:`P_v`.
+
+Now suppose there were a shorter path *P* from *s* to *v*. Since :math:`v \notin S`, *P* must leave *S* at some point:
+let the first edge leaving *S* be :math:`(x, y)`. Since :math:`x \in S`, we previously considered the edge 
+:math:`(x, y)` and therefore :math:`d(y) \leq d(x) + w(x, y)`. Also, since :math:`y \notin S`, the algorithm selected
+*v* to pop before *y*, so :math:`d(v) \leq d(y)`. Then :math:`d(v) \leq d(x) + w(x, y)` but the length of *P* is
+:math:`d(x) + w(x, y)`, and :math:`P_v` has length :math:`d(v)`, so *P* cannot be shorter than :math:`P_v`. This is
+a contradiction, so :math:`P_v` is in fact a shortest path from *s* to *v*.
+
+.. image:: _static/graphs23.png
+    :width: 250
+
+Then :math:`d(v)` is the distance from *s* to *v*, so *I* holds after the end of the loop. Therefore *I* is an
+invariant, and by induction it holds when the algorithm terminates. Since all vertices are popped off when the
+algorithm terminates, *T* must then be a shortest path's tree (and :math:`d(v)` is the distance from *s* to *v* for
+all *v*)
+
