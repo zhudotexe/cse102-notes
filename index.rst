@@ -16,6 +16,7 @@ Welcome to cse102-notes's documentation!
    divide
    structures
    graphs
+   greedy
 
 Transcripts
 -----------
@@ -75,6 +76,8 @@ Week 7
 ^^^^^^
 
 2/17/2021: Dijkstra's Algorithm (no transcript available)
+
+2/19/2021: Greedy Algorithms (no transcript available)
 
 
 

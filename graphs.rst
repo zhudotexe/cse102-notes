@@ -458,3 +458,26 @@ invariant, and by induction it holds when the algorithm terminates. Since all ve
 algorithm terminates, *T* must then be a shortest path's tree (and :math:`d(v)` is the distance from *s* to *v* for
 all *v*)
 
+Related Problems
+^^^^^^^^^^^^^^^^
+
+Shortest-Paths in a DAG
+"""""""""""""""""""""""
+Can do better than Dijkstra's using a topological order on the vertices:
+
+:math:`d(v)=\min_{(u, v) \in E} [d(u)+w(u, v)]` (by convention, infinity if there are no edges (u, v))
+
+:math:`d(s) = 0`
+
+Iteratively compute :math:`d(v)` in topological order - whenever :math:`d(u)` is needed, it has already been computed.
+This works even if there are negative weights.
+
+Shortest-Paths With Negative Weights
+""""""""""""""""""""""""""""""""""""
+Use the Bellman-Ford alg. (examined later)
+
+All-Pairs Shortest-Paths
+""""""""""""""""""""""""
+Find the shortest path from *u* to *v* for any pair of vertices (u, v)
+
+Could run Dijkstra from every start vertex; for dense graphs use the Flord-Warshall alg.
