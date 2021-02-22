@@ -79,6 +79,11 @@ Week 7
 
 2/19/2021: Greedy Algorithms (no transcript available)
 
+Week 8
+^^^^^^
+
+2/22/2021: Mimimal Lateness/Huffman Coding (no transcript available)
+
 
 
 Indices and tables
