@@ -17,6 +17,7 @@ Welcome to cse102-notes's documentation!
    structures
    graphs
    greedy
+   dynamic
 
 Transcripts
 -----------
@@ -57,7 +58,6 @@ Week 4
 
 Week 5
 ^^^^^^
-
 2/1/2021: BFS/DFS (no transcript available)
 
 2/3/2021: Cyclic Test/Topological Sort (no transcript available)
@@ -74,15 +74,15 @@ Week 6
 
 Week 7
 ^^^^^^
-
 2/17/2021: Dijkstra's Algorithm (no transcript available)
 
 2/19/2021: Greedy Algorithms (no transcript available)
 
 Week 8
 ^^^^^^
+2/22/2021: Minimal Lateness/Huffman Coding (no transcript available)
 
-2/22/2021: Mimimal Lateness/Huffman Coding (no transcript available)
+2/24/2021: Dynamic Programming (no transcript available)
 
 
 
