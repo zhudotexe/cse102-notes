@@ -69,4 +69,84 @@ Solution: *memoization* - whenever we solve a subproblem, save its solution in a
 look it up instead of doing further recursion.
 
 Here, we use a table :math:`M[1..n]`. Each value is then computed at most once, and work to compute a value is constant,
-so total runtime will be linear.
+so total runtime will be linear (assuming :math:`p(i)` is computed).
+
+Another way to think about memoization: it turns a recursion tree into a DAG by collapsing identical nodes together.
+
+.. image:: _static/dynamic3.png
+    :width: 350
+
+.. note::
+    Instead of memoization on a recursive algorithm, we can also eliminate recursion and just compute the "memo table"
+    iteratively in a suitable order.
+
+    In the example above, could just compute M[1], M[2], ..., M[n] in increasing order: then all subproblems needed
+    to compute M[i] will already have been computed (since M[i] only depends on M[j] with j<i)
+
+    .. code-block::
+
+        M[1] = v1
+        for i from 2 to n:
+            M[i] = max(M[p(i)] + vi, M[i - 1])
+
+TLDR: Dynamic programming = recursive decomposition into subproblems + memoization
+
+Design
+------
+Main steps for designing a dynamic programming algorithm:
+
+1. Define a notion of subproblem; there should only be polynomially-many distinct subproblems
+2. Derive a recursive equation expressing the optimal solution of a subproblem in terms of optimal solutions to "smaller" subproblems
+3. Express the solution to the original problem in terms of one or more subproblems
+4. Work out how to process subproblems "in order" to get an iterative algorithm
+
+Edit Distance
+-------------
+*Levenshtein Distance*
+
+Distance metric between strings, e.g. "kitten" and "site".
+
+:math:`d(s, t)` = minimum number of character insertions, deletions, or substitutions (replacing a single character
+with another) needed to turn *s* into *t*.
+
+**Ex**:
+
+.. code-block:: text
+
+    kitten
+    sitten
+    siten
+    site
+
+This is the shortest sequence of transformations, so :math:`d(kitten, site) = 3`. Very useful for approximate string
+matching, e.g. spell checking, OCR, DNA sequence alignment (see textbook)
+
+Naive algorithm (checking all strings reachable with 1 op, 2 ops, etc) could take exponential time - let's improve with
+dynamic programming.
+
+**Problem**: Given strings ``s[1..n]`` and ``t[1..m]``, compute :math:`d(s, t)`. To divide into subproblems, let's look
+at *prefixes* of *s* and *t*.
+
+Let :math:`D(i, j)` be the edit distance between ``s[1..i]`` and ``t[1..j]``. We ultimately want to compute
+:math:`D(n, m)`.
+
+Let's find a recursive equation for :math:`D(i, j)`. Suppose we had an optimal sequence of operations transforming
+``s[1..i]`` into ``t[1..j]``. Without loss of generality, we can assume the operations proceed from left to right;
+then can view the sequence as an "edit transcript" saying for each character of *s* what operation(s) to perform,
+if any.
+
+**Ex**: (S = sub, I = insert, D = delete, M = noop)
+
+.. code-block:: text
+
+    kitten -(sub k)> sitten -(del t)> siten -(del n)> site
+
+    transcript: SMMDMD
+
+Look at the last operation in the transcript. Several possibilities:
+
+- If I, the sequence is an optimal seq. turning ``s[1..i]`` into ``t[1..j-1]`` followed by the insertion of ``t[j]``, so :math:`D(i, j) = D(i, j-1)+1`.
+- If D, the seq. is an optimal one turning ``s[1..i-1]`` into ``t[1..j]``, followed by deleting ``s[i]``, so :math:`D(i, j) = D(i-1, j) + 1`.
+- If S, the seq. is an optimal one turning ``s[1..i-1]`` into ``t[1..j-1]``, followed by turning ``s[i]`` into ``t[j]``, so :math:`D(i, j) = D(i-1, j-1) + 1`.
+
+

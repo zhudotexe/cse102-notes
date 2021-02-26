@@ -84,6 +84,8 @@ Week 8
 
 2/24/2021: Dynamic Programming (no transcript available)
 
+2/26/2021: Edit Distance (no transcript available)
+
 
 
 Indices and tables
