@@ -124,7 +124,9 @@ matching, e.g. spell checking, OCR, DNA sequence alignment (see textbook)
 Naive algorithm (checking all strings reachable with 1 op, 2 ops, etc) could take exponential time - let's improve with
 dynamic programming.
 
-**Problem**: Given strings ``s[1..n]`` and ``t[1..m]``, compute :math:`d(s, t)`. To divide into subproblems, let's look
+Problem
+^^^^^^^
+Given strings ``s[1..n]`` and ``t[1..m]``, compute :math:`d(s, t)`. To divide into subproblems, let's look
 at *prefixes* of *s* and *t*.
 
 Let :math:`D(i, j)` be the edit distance between ``s[1..i]`` and ``t[1..j]``. We ultimately want to compute
@@ -143,10 +145,97 @@ if any.
 
     transcript: SMMDMD
 
+Solution
+^^^^^^^^
 Look at the last operation in the transcript. Several possibilities:
 
 - If I, the sequence is an optimal seq. turning ``s[1..i]`` into ``t[1..j-1]`` followed by the insertion of ``t[j]``, so :math:`D(i, j) = D(i, j-1)+1`.
 - If D, the seq. is an optimal one turning ``s[1..i-1]`` into ``t[1..j]``, followed by deleting ``s[i]``, so :math:`D(i, j) = D(i-1, j) + 1`.
 - If S, the seq. is an optimal one turning ``s[1..i-1]`` into ``t[1..j-1]``, followed by turning ``s[i]`` into ``t[j]``, so :math:`D(i, j) = D(i-1, j-1) + 1`.
+- If M, the seq. is an optimal one turning ``s[1..i-1]`` into ``t[1..j-1]``, so :math:`D(i, j) = D(i-1, j-1)`.
 
+The optimal sequence will take whichever option yields the smallest value of D, so we have
 
+.. math::
+
+    D(i, j) & = \min(D(i, j-1)+1, D(i-1, j)+1, D(i-1, j-1)+c) \\
+    & \text{where } c = 0 \text{ if s[i] = t[j] or } 1 \text{ otherwise} \\
+    D(0, j) & = j \\
+    D(i, 0) & = i
+
+.. note::
+    For the base cases, we can use a sequence of insertions/deletions to get from an empty string to another (or vice
+    versa).
+
+Runtime
+^^^^^^^
+How long does the recursive algorithm with memoization take to compute :math:`D(n, m)`?
+
+- Total number of distinct subproblems: :math:`\Theta(nm)`
+- Time for each subproblem: :math:`\Theta(1)` (only look at a constant number of previously computed values)
+
+So the total runtime is :math:`\Theta(nm)`.
+
+.. note::
+    The memo table takes :math:`\Theta(nm)` memory, but recursion only depends on current and previous value of *j*, so
+    it is enough to save only the current and previous row of the table.
+
+    .. image:: _static/dynamic4.png
+        :width: 350
+
+    This reduces the memory needed to :math:`\Theta(m)`.
+
+Bellman-Ford Algorithm
+----------------------
+*single-source shortest paths with negative weights*
+
+.. note::
+    If there is a cycle with negative weight (a "negative cycle"), no shortest path may exist.
+
+    .. image:: _static/dynamic5.png
+        :width: 350
+
+    The BF algorithm can detect this.
+
+Idea
+^^^^
+Compute distance :math:`d(v)` to each vertex *v* from source *s* by dynamic programming.
+
+Note that this is similar to the shortest-path algorithm for DAGs. However, a naive attempt won't work since the graph
+can have cycles, which would lead to infinite recursion when trying to compute :math:`d(v)`.
+
+To fix this problem, we introduce an *auxiliary variable* in our definition of the subproblems. Here, given source
+vertex *s*, let :math:`D(v, i)` be the length of the shortest path from *s* to *v* using at most *i* edges. This
+prevents infinite recursion since we'll express :math:`D(v, i)` in terms of *D* for smaller values of *i*.
+
+Solution
+^^^^^^^^
+**Lemma**: If there are no negative cycles, the shortest path from *s* to *v* passes through each vertex at most once,
+so :math:`d(v) = D(v, n-1)`.
+
+To get a recursion for :math:`D(v, i)`, consider a shortest path from *s* to *v* using at most *i* edges: either it has
+exactly *i* edges, or :math:`\leq i-1` edges.
+
+- If :math:`\leq i-1` edges, then :math:`D(v, i) = D(v, i-1)`
+- If exactly *i* edges, call the last edge :math:`(u, v)`; then we have :math:`D(v, i) = D(u, i-1) + w(u, v)`.
+
+So, minimizing over all possible cases (including the choice of *u*):
+
+.. math::
+
+    D(v, i) & = \min(D(v, i-1), \min_{(u, v) \in E} (D(u, i-1) + w(u, v))) \\
+    D(v, 0) & = \begin{cases}
+                  0 & v = s \\
+                  \infty & \text{ otherwise}
+                \end{cases}
+
+Now we can compute :math:`D(t, n-1)` to get the distance :math:`d(t)` using this formula using memoization as usual.
+
+Runtime
+^^^^^^^
+Total number of distinct subproblems: *n* choices for *v* and *n* choices for *i* = :math:`\Theta(n^2)`
+
+Notice for each subproblem, we iterate over all incoming edges to *v*. So for each *i*, only need to consider each edge
+exactly once.
+
+Therefore, the total runtime is :math:`\Theta(nm)`.

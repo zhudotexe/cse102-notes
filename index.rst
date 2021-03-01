@@ -86,6 +86,9 @@ Week 8
 
 2/26/2021: Edit Distance (no transcript available)
 
+Week 9
+^^^^^^
+3/1/2021: Bellman-Ford Algorithm (no transcript available)
 
 
 Indices and tables
