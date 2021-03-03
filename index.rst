@@ -18,6 +18,7 @@ Welcome to cse102-notes's documentation!
    graphs
    greedy
    dynamic
+   flow
 
 Transcripts
 -----------
