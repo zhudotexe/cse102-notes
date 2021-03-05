@@ -94,10 +94,103 @@ each edge of the path in turn:
 This then enables a greedy approach to max flow:
 
 Ford-Fulkerson Method
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 - start with the all-zero flow *f*
 - while there is a path from *s* to *t* in :math:`G_f`:
     - take any augmenting path *p*
     - augment *f* along *p*
 - return *f*
+
+.. image:: _static/flow6.png
+    :width: 700
+
+Termination and Runtime
+^^^^^^^^^^^^^^^^^^^^^^^
+Invariant: Flow along each edge is an integer.
+
+- True initially, since we start with the all-zero flow
+- If true at one iteration, the residual capacities are all integers since the flows and capacities are integers. So
+  the bottleneck *b* is an integer, and the new flow will all be integers.
+
+So the value of the flow increases every iteration (see lemma) and is an integer, and since it can't exceed
+:math:`\sum_{e=(s,v)\in E}c_e`, the value of the flow has to eventually stop growing so the loop must eventually
+terminate.
+
+If the value of the maximum flow is *F*, there are in fact at most *F* iterations, since :math:`b \geq 1`. So if the
+network has *n* vertices and *m* edges, we can implement FF in :math:`O(mF)` time:
+
+1. Building the residual graph takes :math:`O(n+m)` time, which is :math:`O(m)` since each vertex has at least one edge
+2. Finding an augmenting path with BFS/DFS takes :math:`O(m)` time
+3. Augmenting the flow requires iterating over the path and takes :math:`O(m)`
+
+Optimality
+^^^^^^^^^^
+Idea: Flow from *s* to *t* cannot exceed the total capacity of edges crossing a cut which separates *s* from *t*.
+
+.. image:: _static/flow7.png
+    :width: 250
+
+A partition of *V* into two sets :math:`(A, B)` with :math:`s\in A, t\in B` is an *s-t cut*.
+
+The *capacity* of the cut is the total capacity of all edges from *A* to *B*:
+
+.. math::
+
+    c(A,B) & =\sum_{e=(u, v)\in E, u \in A, v \in B}c_e \\
+           & = \sum_{e \text{ out of } A}c_e
+
+Given a flow *f*, let :math:`f^{out}(A) = \sum_{e \text{ out of } A} f(e)` and
+:math:`f^{in}(A) = \sum_{e \text{ into } A} f(e)`
+
+Lemma
+"""""
+:math:`v(f)=f^{out}(A)-f^{in}(A)`
+
+**Proof**: By definition, :math:`v(f)=f^{out}(s)`. Also :math:`f^{in}(s)=0` since *s* has no incoming edges. So
+:math:`v(f)=f^{out}(s)-f^{in}(s)`. Also, by conservation of flow, for any :math:`v \in A` *besides* *s*,
+:math:`f^{out}(v)=f^{in}(v)`. So :math:`v(f)=\sum_{v\in A}(f^{out}(v)-f^{in}(v))`. Now consider the contribution of
+every edge :math:`e=(u, v)` to this sum:
+
+- If an edge from *A* to *A*, its flow :math:`f(e)` appears as a positive term in :math:`f^{out}(u)` and a negative
+  term in :math:`f^{in}(v)`, which cancel out.
+- If an edge from *A* to *B*, it contributes :math:`f(e)` to the sum
+- If an edge from *B* to *A*, it contributes :math:`-f(e)`
+- If an edge from *B* to *B*, it contributes 0
+
+So the sum is equivalent to
+
+.. math::
+
+    & \sum_{e \text{ out of } A} f(e) - \sum_{e \text{ into } A} f(e) \\
+    & = f^{out}(A)-f^{in}(A).
+
+**Corollary**: For any flow *f* and s-t cut :math:`(A, B), v(f)\leq c(A, B)`.
+
+
+Theorem
+"""""""
+When FF algorithm returns *f*, there is an s-t cut :math:`(A, B)` such that :math:`v(f)=c(A,B)`.
+
+**Proof**: When FF terminates, there is no path from *s* to *t* in :math:`G_f`. So if *A* is all vertices reachable from
+*s* in :math:`G_f`, and *B* is all other vertices, :math:`(A, B)` is an s-t cut.
+
+There are no edges from *A* to *B* in :math:`G_f`, since otherwise the destination in *B* would be reachable from *s*.
+
+So for any edge *e* from *A* to *B* in the original graph *G*, we must have :math:`f(e)=c_e`, since otherwise there
+would be a forward edge from *A* to *B* in :math:`G_f`.
+
+Likewise, for any edge *e* from *B* to *A* in *G*, we must have :math:`f(e)=0`, since otherwise there would be a
+backward edge from *A* to *B* in :math:`G_f`.
+
+Now by earlier lemma:
+
+.. math::
+
+    v(f)  & = f^{out}(A) - f^{in}(A) \\
+    & = \sum_{e \text{ out of } A} f(e) - \sum_{e \text{ into } A} f(e) \\
+    & = \sum_{e \text{ out of } A} c_e \\
+    & = c(A, B).
+
+**Corollary**: Since no flow has value greater than the capacity of a cut, the flow returned by FF is optimal.
+

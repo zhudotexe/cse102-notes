@@ -91,6 +91,10 @@ Week 9
 ^^^^^^
 3/1/2021: Bellman-Ford Algorithm (no transcript available)
 
+3/3/2021: Network Flow (no transcript available)
+
+3/5/2021: Ford-Fulkerson Algorithm (no transcript available)
+
 
 Indices and tables
 ==================
