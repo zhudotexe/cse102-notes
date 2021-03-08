@@ -95,6 +95,10 @@ Week 9
 
 3/5/2021: Ford-Fulkerson Algorithm (no transcript available)
 
+Week 10
+^^^^^^^
+3/8/2021: Applications of FF
+
 
 Indices and tables
 ==================

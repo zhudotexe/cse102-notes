@@ -194,3 +194,72 @@ Now by earlier lemma:
 
 **Corollary**: Since no flow has value greater than the capacity of a cut, the flow returned by FF is optimal.
 
+**Corollary**: The cut :math:`(A, B)` from the theorem above is a minimum cut: its capacity is as small as possible.
+(If there were one with a smaller capacity, the flow would have to have a smaller value)
+
+This means we can use FF to find a minimum s-t cut in a graph: run it to find the flow *f*, then build :math:`(A, B)`
+as in the theorem.
+
+**Theorem (Max-Flow Min-Cut)**: In any flow network, the maximum value of an s-t flow is the minimum value of an s-t
+cut.
+
+.. note::
+    Since FF always finds a flow with integer flows on all edges, there is always a maximum flow of this form.
+
+Runtime Revisited
+^^^^^^^^^^^^^^^^^
+Our runtime bound of :math:`O(mF)` with *F* being the value of the max-flow isn't good when the capacities in the
+network are large (*F* could be large). But it turns out that if you use BFS to find the *shortest* augmenting path,
+the algorithm takes at most :math:`O(nm^2)` time.
+
+This choice of path is called the Edmonds-Karp algorithm.
+
+Applications
+------------
+
+- Routing problems (get data from point A to B, maximizing throughput)
+- Matching problems, e.g. bipartite matching
+
+Bipartite Matching
+^^^^^^^^^^^^^^^^^^
+Suppose we have *n* workers with different skills, and various jobs to do which some subsets of the workers are
+qualified to do. We want to assign workers to jobs so that as many jobs get done as possible, with no worker
+assigned multiple jobs and no job assigned multiple workers.
+
+Model this problem using a *bipartite graph*: vertices for workers and jobs, with edges indicating who can do which
+jobs.
+
+.. image:: _static/flow8.png
+    :width: 250
+
+Then we want to find a *maximum matching*: a set of edges *M* where no two edges share a vertex and is as large as
+possible.
+
+.. image:: _static/flow9.png
+    :width: 250
+
+**Idea**: construct a network for instance such that the maximum flow is obtained by matching as many workers to jobs
+as possible.
+
+Think of each worker as having 1 unit of work, which can be allocated to any of the jobs they can perform.
+
+- Add source node *s* and capacity 1 edges to each worker
+- Add capacity 1 edges from each worker to each possible job they can do
+- Add capacity 1 edges from each job to a sink node *t*
+
+.. image:: _static/flow10.png
+    :width: 500
+
+To show this works, need to prove 2 directions:
+
+- If there is a matching with *k* edges, there is a flow of value *k*: flow 1 unit to each of the *k* workers assigned
+  a job, then along the matched edges to their corresponding jobs, then to *t*.
+- Conversely, given a maximum flow with value *k* from FF, we can assume all flows on all edges are integers. Then
+  there must be *k* jobs with 1 unit of flow coming out, and the rest have 0.
+    - For those *k* jobs, they must have 1 unit of flow coming from a unique worker.
+    - We can assign that worker to this job and get a valid assignment.
+
+So every maximum matching corresponds to a maximum flow, and vice versa, and we can use FF to find such max a flow,
+and reconstruct the matching.
+
+Since the maximum flow value is at most *n* (all workers assigned to jobs), the runtime of FF will be :math:`O(nm)`.
