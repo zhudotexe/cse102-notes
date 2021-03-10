@@ -256,6 +256,7 @@ To show this works, need to prove 2 directions:
   a job, then along the matched edges to their corresponding jobs, then to *t*.
 - Conversely, given a maximum flow with value *k* from FF, we can assume all flows on all edges are integers. Then
   there must be *k* jobs with 1 unit of flow coming out, and the rest have 0.
+
     - For those *k* jobs, they must have 1 unit of flow coming from a unique worker.
     - We can assign that worker to this job and get a valid assignment.
 
@@ -263,3 +264,57 @@ So every maximum matching corresponds to a maximum flow, and vice versa, and we 
 and reconstruct the matching.
 
 Since the maximum flow value is at most *n* (all workers assigned to jobs), the runtime of FF will be :math:`O(nm)`.
+
+Image Segmentation
+^^^^^^^^^^^^^^^^^^
+Suppose we want to identify which parts of an image are foreground/background, e.g. separating people from scenery.
+
+.. image:: _static/flow11.png
+    :width: 250
+
+Two types of criteria for deciding if a pixel is a part of the foreground:
+
+1. A pixel may be more likely to be foreground due to color, position in image, etc. Say we have nonnegative likelihoods
+   :math:`a_i` and :math:`b_i` for pixel *i* being foreground/background.
+2. A pixel which is adjacent to other foreground pixels is likely in the foreground. For each pair :math:`(i, j)` of
+   adjacent pixels, say we have a *penalty* :math:`p_{ij} \geq 0` for putting one in the foreground but not the other.
+
+The best segmentation is then a partition of the pixels :math:`(A, B)` maximizing
+
+.. math::
+
+    q(A, B) = \sum_{i\in A} a_i + \sum_{j \in B} b_j - \sum_{(i, j) \text{ adjacent} \\ \text{1 in A}} p_{ij}
+
+Solving
+"""""""
+To find the best partition, we observe that segmentations look like cuts in a graph, since they both partition
+pixels/vertices into 2 disjoint groups.
+
+Can we set up a flow network s.t. the best segmentation corresponds to a minimum cut?
+
+**Issue**: need to maximize :math:`q`, not minimize. But notice that :math:`q(A, B)` is at most
+:math:`Q=\sum_i (a_i+b_i)`. So let's minimize:
+
+.. math::
+
+    q'(A, B) = Q-q(A,B) = \sum_{i\in A} b_i + \sum_{j \in B} a_j + \sum_{(i, j) \text{ adjacent} \\ \text{1 in A}} p_{ij}
+
+Now we need to encode :math:`q'(A,B)` as the capacity of a cut in some network.
+
+We'll add source and sink vertices *s* and *t*, and think of an s-t cut :math:`(A, B)` as representing a segmentation
+where all pixels in *A* are in the foreground, and the rest are in the background. We'll encode each item above
+as the capacity of an edge crossing the cut.
+
+- Add an edge from pixel *i* to the sink *t* with capacity :math:`b_i`: then if :math:`i \in A`, since :math:`t\in B`,
+  we will get a contribution of :math:`b_i` to the capacity of the cut.
+- Add an edge from *s* to *j* with capacity :math:`a_j`: then in :math:`j \in B`, since :math:`s\in A`, we will get
+  a contribution of :math:`a_j` to the capacity of the cut.
+- Add edges from pixel *i* to adjacent pixel *j* and vice versa with capacity :math:`p_{ij}`: then if :math:`i \in A`
+  but :math:`j \in B` or vice versa, we get a contribution of :math:`p_{ij}`.
+
+.. image:: _static/flow12.png
+    :width: 500
+
+Then the capacity of the cut :math:`(A,B)` equals :math:`q'(A,B)`, so the minimum cut in the flow network corresponds
+to the best segmentation. Therefore, to find :math:`(A,B)` we can run FF to find the maximum flow in the network
+and extract the corresponding minimum cut.

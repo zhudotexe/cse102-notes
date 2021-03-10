@@ -19,6 +19,7 @@ Welcome to cse102-notes's documentation!
    greedy
    dynamic
    flow
+   beyond
 
 Transcripts
 -----------
@@ -97,7 +98,9 @@ Week 9
 
 Week 10
 ^^^^^^^
-3/8/2021: Applications of FF
+3/8/2021: Applications of FF: Bipartite Matching
+
+3/10/2021: Image Segmentation
 
 
 Indices and tables
